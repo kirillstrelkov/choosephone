@@ -1,0 +1,7 @@
+class CompareController < ApplicationController
+  def index
+  end
+  
+  def compare
+  end
+end
