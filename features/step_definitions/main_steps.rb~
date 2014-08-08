@@ -14,6 +14,10 @@ Then(/^I should see '(.+)' button$/) do |name|
   expect(page).to have_button(name)
 end
 
+Then(/^I should not see 'Clear' button$/) do 
+  expect(page).not_to have_selector('#clear_btn', visible: false)
+end
+
 When(/^I fill in textarea with '(.+)'$/) do |phones|
   fill_in('phones', :with => phones)
 end
@@ -26,11 +30,19 @@ Then(/^I should see '(.+)' before '(.+)'$/) do |phone1, phone2|
   expect(page.body.index(phone1)).to be < page.body.index(phone2)
 end
 
-Then(/^I should not see '(.+)'$/) do |text|
+Then(/^I should see '(.+)' on page$/) do |text|
+  expect(page.body).to have_text(text)
+end
+
+Then(/^I should not see '(.+)' on page$/) do |text|
   expect(page.body).not_to have_text(text)
 end
 
-Then(/^textarea field should be empty$/) do
-  expect(page.find(:id, 'phones').value).to be_empty
+Then(/^'(.+)' field value should be '(.*)'$/) do |selector, value|
+  expect(page.find(selector).value).to eq value
+end
+
+Then(/^I should not see '(.+)' in table$/) do |text|
+  expect(page.find('ul')).not_to have_text(text)
 end
 

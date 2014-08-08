@@ -1,8 +1,10 @@
 Goodphone::Application.routes.draw do
-  get "phones/compare"
-
-  get "phones/index"
+  get 'phones/index'
+  get 'phones/search'
+  get 'phones/data'
   post 'phones/compare'
+  
+  root :to => 'phones#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

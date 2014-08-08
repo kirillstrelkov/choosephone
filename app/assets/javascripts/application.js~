@@ -14,8 +14,9 @@
 //= require jquery_ujs
 //= require_tree .
 $(document).ready(function(){
+  $();
   $('#clear_btn').click(function(event){
-    event.preventDefault()
+    event.preventDefault();
     $('#phones').val('');
   });
 });

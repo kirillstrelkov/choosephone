@@ -1,6 +1,14 @@
-%h1 Phones#index
-%p Find me in app/views/phones/index.html.haml
+%div{:id => 'notice', :class => 'message'}= flash[:notice]
+%div{:id => 'error', :class => 'message'}= flash[:error]
 =form_tag '/phones/compare', :method => :post do
-  =text_area_tag 'phones', nil, :placeholder => "Enter here list of phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
-  =button_tag 'Clear', :id=> 'clear_btn', :type => 'button'
+  =text_area_tag 'phones', @query, :placeholder => "Enter here list of phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
+  =button_tag 'Clear', :id=> 'clear_btn'
   =submit_tag 'Search'
+
+%ul
+  -@phones.each  do |phone|
+    %li
+      %div
+        =link_to phone['name'], phone['url'], :target => '_black'
+      %div
+        =phone['points']

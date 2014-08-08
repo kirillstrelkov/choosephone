@@ -162,6 +162,7 @@ DEPENDENCIES
   database_cleaner
   haml-rails
   jquery-rails
+  nokogiri
   rails (= 3.2.14)
   rspec-rails
   sass-rails (~> 3.2.3)
