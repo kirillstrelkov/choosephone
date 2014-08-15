@@ -16,9 +16,9 @@ module PhonesHelper
     
     uri = URI.encode("#{@@url}/en/#{name_url}")
     doc = Nokogiri::HTML(open(uri))
-    
-    name = doc.xpath("//div[@id='name']/text()")[0].to_s
-    points = doc.xpath("//div[@id='points']/text()")[0].to_s
+
+    name = doc.xpath("//div[@id='stage']/div[1]/h1/text()")[0].to_s
+    points = doc.xpath("//div[@id='stage']/div[1]/h2/text()")[0].to_s
     values = [name]
     values += [/\d+/.match(points)[0].to_i]
     values += [uri]
@@ -38,7 +38,7 @@ module PhonesHelper
   def self.get_all_phones(phone_names)
     phone_names.map do |phone_name|
       self.get_phone_data_with_name(phone_name)
-    end.sort {|a,b| - (a['points'] <=> b['points'])} 
+    end.sort {|a,b| - (a['points'] <=> b['points'])}.compact
   end
   
 end

@@ -34,9 +34,10 @@ describe PhonesController do
   end
   
   describe "GET 'compare'" do
-    it "should return data for url 'lg-optimus-l9'" do
-      post 'compare', {:q => 'lg optimus l9'}
+    it "should return phone for query 'lg optimus l9'" do
+      post 'compare', {:phones => 'lg optimus l9'}
       phone = assigns(:phones)[0]
+      expect(phone).not_to be_nil
       expect(phone[:name]).to eq 'LG Optimus L9'
       expect(phone[:points]).to be >= 8300
     end
