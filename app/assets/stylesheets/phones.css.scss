@@ -1,11 +1,39 @@
 // Place all the styles related to the phones controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#clear_btn {
-  display: none
+.phone_name,
+.phone_points {
+  float: left;
 }
 
-ul {
-  list-style: none;
+.phone_points {
+  width: 100px;
 }
 
+.phone_name {
+  width: 200px;
+}
+
+textarea {
+  width: 470px;
+  height: 100px;
+}
+
+form {
+  margin: 10px 0px 10px 20px;
+}
+
+#content,
+header,
+footer {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.message {
+  margin-left: 20px;
+}
+
+#search_btn {
+  margin-left: 345px;
+}

@@ -1,14 +1,26 @@
-%div{:id => 'notice', :class => 'message'}= flash[:notice]
-%div{:id => 'error', :class => 'message'}= flash[:error]
-=form_tag '/phones/compare', :method => :post do
-  =text_area_tag 'phones', @query, :placeholder => "Enter here list of phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
-  =button_tag 'Clear', :id=> 'clear_btn'
-  =submit_tag 'Search'
+%header
+  %div{:id => 'notice', :class => 'message'}= flash[:notice]
+  %div{:id => 'error', :class => 'message'}= flash[:error]
 
-%ul
-  -@phones.each  do |phone|
-    %li
-      %div
-        =link_to phone['name'], phone['url'], :target => '_black'
-      %div
-        =phone['points']
+%div{:id => 'content'}
+  =form_tag '/phones/compare', :method => :get do
+    =text_area_tag 'phone_names', @query, :placeholder => "Enter here list of phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
+    %br
+    =button_tag 'Clear', :id=> 'clear_btn', :type => 'submit', :name => 'commit', :value => 'clear'
+    =button_tag 'Search', :id=> 'search_btn', :type => 'submit', :name => 'commit', :value => 'search'
+  %ol
+    -@phones.each  do |phone|
+      %li
+        %div{:class => 'phone_points'}
+          =phone['points']
+        %div{:class => 'phone_name'}
+          =link_to phone['name'], phone['url'], :target => '_blank'
+        =button_tag 'Show technical data', class: 'toggle_tech_data', :type => 'button'
+        %table
+          -phone.select {|k, v| not ['name', 'points', 'url', 'price'].include?(k)}.each do |key, value| 
+            %tr
+              %td
+                =key
+              %td
+                =value
+%footer

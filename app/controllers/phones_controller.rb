@@ -16,10 +16,19 @@ class PhonesController < ApplicationController
   
   def compare
     @phones = []
-    @query = params['phones']
-
+    @commit = params[:commit]
+    
+    if @commit == 'clear'
+      @query = nil
+    else
+      @query = params['phone_names']
+    end
+    
+    puts @commit
+    puts @query
+    puts params
     if @query.nil?
-      flash[:notice] = "Parameter 'name_url' was not passed"
+      flash[:notice] = "Parameter 'name_url' was not passed" if @commit != 'clear'
       redirect_to action: 'index'
     else
       @phones = PhonesHelper.get_all_phones(@query.split(','))

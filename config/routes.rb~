@@ -1,7 +1,7 @@
 Goodphone::Application.routes.draw do
   get 'phones/index'
   get 'phones/search'
-  post 'phones/data'
+  get 'phones/data'
   post 'phones/compare'
   
   root :to => 'phones#index'

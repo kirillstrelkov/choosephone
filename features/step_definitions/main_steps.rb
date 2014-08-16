@@ -19,7 +19,7 @@ Then(/^I should not see 'Clear' button$/) do
 end
 
 When(/^I fill in textarea with '(.+)'$/) do |phones|
-  fill_in('phones', :with => phones)
+  fill_in('phone_names', :with => phones)
 end
 
 When(/^I click '(.+)' button$/) do |text|
