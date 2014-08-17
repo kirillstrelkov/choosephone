@@ -13,7 +13,7 @@
       %li
         %div{:class => 'phone_points'}
           =phone['points']
-        %div{:class => 'phone_name'}
+        %div{:class => 'phone_name', :title => phone['name']}
           =link_to phone['name'], phone['url'], :target => '_blank'
         =button_tag 'Show technical data', class: 'toggle_tech_data', :type => 'button', :disabled => true
         %table

@@ -11,7 +11,10 @@
 }
 
 .phone_name {
+  text-overflow: ellipsis;
+  overflow: hidden;
   width: 200px;
+  white-space: nowrap;
 }
 
 textarea {
