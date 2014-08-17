@@ -1,6 +1,17 @@
 %header
+  You are looking for the best phones among your own list?
+  %br
+  Can't figure one which one to choose?
+  %br
+  This web site will try to help you:
+  %ol
+    %li Fill text field with your list of phones using ','(comma) as delimiter
+    %li Press 'Search' and wait until all your phones will be sorted
+    %li Analyze them and choose the best one
   %div{:id => 'notice', :class => 'message'}= flash[:notice]
   %div{:id => 'error', :class => 'message'}= flash[:error]
+
+%br
 
 %div{:id => 'content'}
   =form_tag '/phones/compare', :method => :get do
@@ -24,3 +35,8 @@
               %td
                 =value
 %footer
+  This website uses 
+  =link_to 'http://www.versus.com', 'http://www.versus.com', :target => '_blank'
+  API and data.
+
+
