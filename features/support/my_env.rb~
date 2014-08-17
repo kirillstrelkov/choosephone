@@ -1,2 +1,0 @@
-require 'cucumber/rails'
-Capybara.javascript_driver = :webkit
