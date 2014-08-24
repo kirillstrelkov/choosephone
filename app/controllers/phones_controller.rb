@@ -24,7 +24,6 @@ class PhonesController < ApplicationController
       @query = params['phone_names']
     end
 
-    puts @query.nil? or @query.length > 0
     if @query.nil? or @query.length == 0
       flash[:notice] = "You did not enter any phone names" if @commit != 'clear'
       redirect_to action: 'index'
