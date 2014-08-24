@@ -36,8 +36,12 @@ $(document).ready ->
       delay 1000, ->
         $('#notice').hide('slow')
 
-  $('.toggle_tech_data').prop('disabled', false)
-  $('.toggle_tech_data').click (event)->
+  $('.phone_points').click (event)->
     table = $(this).siblings('table')
     event.preventDefault()
-    table.toggle('fast')
+    arrow = $(this).children('span.arrow')
+    if table.is(':visible')
+      arrow.text('\u2b07')
+    else
+      arrow.text('\u2b06')
+    table.slideToggle('fast')

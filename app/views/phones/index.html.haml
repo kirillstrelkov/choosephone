@@ -18,14 +18,17 @@
     %div{:id => 'form-buttons'}
       =button_tag 'Clear', :id=> 'clear_btn', :type => 'submit', :name => 'commit', :value => 'clear'
       =button_tag 'Search', :id=> 'search_btn', :type => 'submit', :name => 'commit', :value => 'search'
+  -if !@phones.empty?
+    %p Sorted list of phone best-to-worst:
   %ol
     -@phones.each  do |phone|
       %li
-        %span{:class => 'phone_points'}
-          =phone['points']
         %span{:class => 'phone_name', :title => phone['name']}
           =link_to phone['name'], phone['url'], :target => '_blank'
-        =button_tag 'Show technical data', class: 'toggle_tech_data', :type => 'button', :disabled => true
+        %span{:class => 'phone_points', :title => 'Toggle techinal data'}
+          =phone['points']
+          %span{:class => 'arrow'}
+            ="\u2b07".html_safe
         %table
           -phone.select {|k, v| not ['name', 'points', 'url', 'price'].include?(k)}.each do |key, value|
             %tr

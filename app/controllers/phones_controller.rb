@@ -1,6 +1,6 @@
 class PhonesController < ApplicationController
   include PhonesHelper
-  
+
   def search
     name = params['q']
     if name.nil?
@@ -13,34 +13,32 @@ class PhonesController < ApplicationController
       end
     end
   end
-  
+
   def compare
     @phones = []
     @commit = params[:commit]
-    
+
     if @commit == 'clear'
       @query = nil
     else
       @query = params['phone_names']
     end
-    
-    puts @commit
-    puts @query
-    puts params
-    if @query.nil?
-      flash[:notice] = "Parameter 'name_url' was not passed" if @commit != 'clear'
+
+    puts @query.nil? or @query.length > 0
+    if @query.nil? or @query.length == 0
+      flash[:notice] = "You did not enter any phone names" if @commit != 'clear'
       redirect_to action: 'index'
     else
       @phones = PhonesHelper.get_all_phones(@query.split(','))
       render :index
     end
   end
-  
+
   def index
     @query = nil
     @phones = []
   end
-  
+
   def data
     name_url = params['name_url']
     if name_url.nil?
@@ -54,4 +52,3 @@ class PhonesController < ApplicationController
     end
   end
 end
-
