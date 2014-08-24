@@ -16,11 +16,12 @@
     m.parentNode.insertBefore a, m
   ) window, document, "script", "//www.google-analytics.com/analytics.js", "ga"
 ga('create', 'UA-53906467-1', 'auto')
-ga('send', 'pageview');
+ga('send', 'pageview')
 
 
 $(document).ready ->
   $('table').hide()
+  $('#search_btn').removeAttr('name')
 
   $('#clear_btn').click (event)->
     event.preventDefault()
@@ -34,9 +35,9 @@ $(document).ready ->
       delay = (ms, func) -> setTimeout func, ms
       delay 1000, ->
         $('#notice').hide('slow')
-  
+
   $('.toggle_tech_data').prop('disabled', false)
   $('.toggle_tech_data').click (event)->
+    table = $(this).siblings('table')
     event.preventDefault()
-    $(this).siblings('table').toggle('fast')
-    
+    table.toggle('fast')

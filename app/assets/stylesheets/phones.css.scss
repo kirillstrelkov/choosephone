@@ -1,46 +1,108 @@
 // Place all the styles related to the phones controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.phone_name,
-.phone_points {
-  float: left;
-}
+$width: 600px;
+$ol-left-padding: 20px;
+$textarea-height: 100px;
+$common-padding: 10px;
 
-.phone_points {
-  width: 100px;
-}
+$phone-points-width: 100px;
+$phone-show-tech-width: 150px;
 
-.phone_name {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 200px;
-  white-space: nowrap;
-}
-
-textarea {
-  width: 470px;
-  height: 100px;
-}
-
-form {
-  margin: 10px 0px 10px 20px;
-}
-
-#content,
-header,
-footer {
-  margin: 0 auto;
-  width: 800px;
-}
-
-.message {
-  margin-left: 20px;
-}
-
-#search_btn {
-  margin-left: 345px;
-}
-
-header ol {
+* {
   margin: 0;
+  padding: 0;
+}
+
+body,
+textarea,
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+ol {
+  list-style-position: outside;
+}
+
+header {
+  padding-bottom: $common-padding;
+  width: $width;
+  ol {
+    padding-left: $ol-left-padding;
+  }
+}
+
+body {
+  margin: 0 auto;
+  width: $width;
+
+  #content {
+    ol {
+      padding-left: $ol-left-padding;
+
+      li {
+        clear: both;
+
+        span {
+          display: inline-block;
+        }
+        span.phone_points {
+          width: $phone-points-width;
+        }
+
+        span.phone_name {
+          width: $width - 10px - $ol-left-padding - $phone-show-tech-width - $phone-points-width;
+        }
+
+        button {
+          width: $phone-show-tech-width;
+        }
+      }
+
+    }
+
+    textarea {
+      width: $width - 6px;
+      height: $textarea-height;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #form-buttons {
+      padding: $common-padding 0;
+
+      #clear_btn,
+      #search_btn {
+        border-radius: 5px;
+        border-width: 0px;
+        height: 30px;
+      }
+
+      #clear_btn {
+        width: $width / 5;
+        background: none repeat scroll 0% 0% #fc3;
+      }
+
+      #search_btn {
+        width: $width / 2;
+        background: none repeat scroll 0% 0% #0f3;
+        position: relative;
+        float: right;
+      }
+    }
+  }
+}
+
+
+
+footer {
+  position: absolute;
+  bottom: 5px;
+  width: $width;
+
+  p {
+    text-align: center;
+  }
 }
