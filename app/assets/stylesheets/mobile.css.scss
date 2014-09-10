@@ -27,7 +27,7 @@ ol {
 header {
   margin: $margin;
   padding-bottom: $common-padding;
-  width: $width;
+
   ol {
     padding-left: $ol-left-padding;
   }
@@ -64,17 +64,11 @@ body {
           display: inline-block;
         }
 
-        span.phone_points:active {
+        span.phone_points {
+          float: right;
           cursor: pointer;
           span.arrow {
             visibility: visible;
-          }
-        }
-
-        span.phone_points {
-          float: right;
-          span.arrow {
-            visibility: hidden;
           }
         }
 
