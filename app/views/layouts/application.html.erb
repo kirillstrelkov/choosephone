@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>Choose best phone between several ones</title>
-  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "application", :media => "all and (min-width:600px)" %>
+  <%= stylesheet_link_tag "mobile.css", :media => "all and (max-width:600px)" %>
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans&subset=cyrillic-ext,latin,latin-ext,cyrillic', :media => 'all' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="google-site-verification" content="c6RYH9hm0G85TJD1lHHtzPGXfRlQpdvqd8oqFgThTdg"/>
-  <meta name="description" content="This website will help you to choose best phones amoung your list."/>
+  <meta name="description" content="If you are tired of comparing multiple phones features and don't know which one to choose. This site will try to help you by sorting them entered phones by their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia ant etc. Functionality is based on http://www.versus.com/ web site."/>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 

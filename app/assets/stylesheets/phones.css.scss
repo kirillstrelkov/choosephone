@@ -5,6 +5,7 @@ $width: 600px;
 $ol-left-padding: 20px;
 $textarea-height: 100px;
 $common-padding: 10px;
+$textarea-padding: 5px;
 
 $phone-points-width: 100px;
 $phone-show-tech-width: 150px;
@@ -81,9 +82,12 @@ body {
     }
 
     textarea {
-      width: $width - 6px;
+      width: $width - 6px - $textarea-padding * 2;
       height: $textarea-height;
       font-size: medium;
+      padding: $textarea-padding;
+      border-radius: 5px;
+      border: solid 1px #ccc;
     }
 
     button {
@@ -96,7 +100,6 @@ body {
     button:focus,
     textarea:focus {
       box-shadow: 0 0 7px gray;
-      border-width: 0;
     }
 
     #form-buttons {
@@ -109,7 +112,8 @@ body {
         height: 30px;
       }
 
-      #clear_btn:hover {
+      #clear_btn:hover,
+      #clear_btn:focus {
         background-color: rgba(255, 153, 51, 1.0);
       }
 
@@ -118,7 +122,8 @@ body {
         background-color: rgba(255, 204, 51, 0.8);
       }
 
-      #search_btn:hover {
+      #search_btn:hover,
+      #search_btn:focus {
         background-color: rgba(51, 204, 51, 1.0);
       }
       #search_btn {

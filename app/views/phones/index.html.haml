@@ -28,7 +28,7 @@
         %span{:class => 'phone_points', :title => 'Toggle techinal data'}
           =phone['points']
           %span{:class => 'arrow'}
-            ="\u2b07".html_safe
+            ="\u25c2".html_safe
         %table
           -phone.select {|k, v| not ['name', 'points', 'url', 'price'].include?(k)}.each do |key, value|
             %tr

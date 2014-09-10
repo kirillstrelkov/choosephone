@@ -41,7 +41,7 @@ $(document).ready ->
     event.preventDefault()
     arrow = $(this).children('span.arrow')
     if table.is(':visible')
-      arrow.text('\u2b07')
+      arrow.text('\u25c2')
     else
-      arrow.text('\u2b06')
+      arrow.text('\u25be')
     table.slideToggle('fast')
