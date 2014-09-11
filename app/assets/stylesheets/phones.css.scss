@@ -58,6 +58,7 @@ body {
 
       li {
         clear: both;
+        position: relative;
 
         span {
           display: inline-block;
@@ -70,11 +71,23 @@ body {
           }
         }
 
+        a.price {
+          display: none;
+        }
+
+        a.price,
         span.phone_points {
           float: right;
-          span.arrow {
+        }
+
+        span.phone_points {
+          margin-left: 140px;
+          width: 60px;
+          text-align: right;
+        }
+
+        span.phone_points span.arrow {
             visibility: hidden;
-          }
         }
 
       }

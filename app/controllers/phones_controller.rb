@@ -1,6 +1,18 @@
 class PhonesController < ApplicationController
   include PhonesHelper
 
+  def amazon_search
+    name = params['phone_name']
+    if name.nil?
+      data = {}
+    else
+      data = PhonesHelper.amazon_search(name)
+    end
+    respond_to do |format|
+      format.json {render :json => data}
+    end
+  end
+
   def search
     name = params['q']
     if name.nil?

@@ -3,7 +3,8 @@ Goodphone::Application.routes.draw do
   get 'phones/search'
   get 'phones/data'
   get 'phones/compare'
-  
+  get 'phones/amazon_search'
+
   root :to => 'phones#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

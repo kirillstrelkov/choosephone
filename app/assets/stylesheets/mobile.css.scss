@@ -64,7 +64,20 @@
           span {
             display: inline-block;
           }
+          a.price {
+            display: none;
+          }
 
+          a.price,
+          span.phone_points {
+            float: right;
+          }
+
+          span.phone_points {
+            margin-left: 40px;
+            width: 60px;
+            text-align: right;
+          }
           span.phone_points {
             float: right;
             cursor: pointer;

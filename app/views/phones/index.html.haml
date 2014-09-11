@@ -29,6 +29,7 @@
           =phone['points']
           %span{:class => 'arrow'}
             ="\u25c2".html_safe
+        %a{:class => 'price', :title => "Possible price for '#{phone['name']}' on Amazon", 'href' => '', :target => '_blank'}
         %table
           -phone.select {|k, v| not ['name', 'points', 'url', 'price'].include?(k)}.each do |key, value|
             %tr
