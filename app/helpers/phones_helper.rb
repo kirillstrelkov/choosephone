@@ -23,8 +23,8 @@ module PhonesHelper
     uri = URI.encode("#{@@url}/en/#{name_url}")
     doc = Nokogiri::HTML(open(uri))
 
-    name = doc.xpath("//div[@id='stage']/div[1]/h1/text()")[0].to_s
-    points = doc.xpath("//div[@id='stage']/div[1]/h2/text()")[0].to_s
+    name = doc.xpath("//div[@id='stage']/div[1]//h1/text()")[0].to_s
+    points = doc.xpath("//div[@id='stage']/div[1]//h2/text()")[0].to_s
     values = [name]
     values += [/\d+/.match(points)[0].to_i]
     values += [uri]
