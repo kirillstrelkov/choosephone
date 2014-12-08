@@ -5,6 +5,8 @@ require 'open-uri'
 
 module PhonesHelper
   @@url = 'http://www.versus.com'
+  @@phone_url = "http://versus.com/en/%s"
+  @@versus_vs = "http://versus.com/en/%s-vs-sony-xperia-z3"
   @@amazon_search = 'http://versus.com/amazon/search'
 
   def self.amazon_search(phone_name)
@@ -20,16 +22,18 @@ module PhonesHelper
   def self.get_phone_data(name_url)
     attributes = ['name', 'points', 'url']
 
-    uri = URI.encode("#{@@url}/en/#{name_url}")
-    doc = Nokogiri::HTML(open(uri))
-
-    name = doc.xpath("//div[@id='stage']/div[1]//h1/text()")[0].to_s
-    points = doc.xpath("//div[@id='stage']/div[1]//h2/text()")[0].to_s
+    uri = URI.encode(@@phone_url % name_url)
+    doc = Nokogiri::HTML(open(URI.encode(@@versus_vs % name_url)))
+    
+    xpath_name = "//div[contains(@class, 'label-group')]//a[contains(@class, 'name')]/text()"
+    xpath_points = "//div[contains(@class, 'label-group')]//a[contains(@class, 'points')]/text()"
+    name = doc.xpath(xpath_name)[0].to_s
+    points = doc.xpath(xpath_points)[0].to_s
     values = [name]
     values += [/\d+/.match(points)[0].to_i]
     values += [uri]
-    attributes += doc.xpath("//div[@class='prop']/div[@class='info']/text()").map{|e| e.to_s}
-    values += doc.xpath("//div[@class='prop']/div[@class='value']/text()").map{|e| e.to_s}
+    #attributes += doc.xpath("//div[@class='prop']/div[@class='info']/text()").map{|e| e.to_s}
+    #values += doc.xpath("//div[@class='prop']/div[@class='value']/text()").map{|e| e.to_s}
 
     Hash[attributes.zip values]
   end

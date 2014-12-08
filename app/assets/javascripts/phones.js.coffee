@@ -36,16 +36,6 @@ $(document).ready ->
       delay 1000, ->
         $('#notice').hide('slow')
 
-  $('.phone_points').click (event)->
-    table = $(this).siblings('table')
-    event.preventDefault()
-    arrow = $(this).children('span.arrow')
-    if table.is(':visible')
-      arrow.text('\u25c2')
-    else
-      arrow.text('\u25be')
-    table.slideToggle('fast')
-
   set_price = (element)->
     phone_name = $(element).prop('title')
     url = encodeURI('/phones/amazon_search?phone_name=' + phone_name)
