@@ -37,7 +37,7 @@ class PhonesController < ApplicationController
     end
 
     if @query.nil? or @query.length == 0
-      flash[:notice] = "You did not enter any phone names" if @commit != 'clear'
+      flash[:notice] = "You did not enter any phone models" if @commit != 'clear'
       redirect_to action: 'index'
     else
       @phones = PhonesHelper.get_all_phones(@query.split(','))

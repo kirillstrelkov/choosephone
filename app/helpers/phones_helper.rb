@@ -20,22 +20,27 @@ module PhonesHelper
   end
 
   def self.get_phone_data(name_url)
-    attributes = ['name', 'points', 'url']
+    phone_data = Hash.new
 
     uri = URI.encode(@@phone_url % name_url)
-    doc = Nokogiri::HTML(open(URI.encode(@@versus_vs % name_url)))
+    versus_top_phone_url = @@versus_vs % name_url
+    doc = Nokogiri::HTML(open(URI.encode(versus_top_phone_url)))
     
     xpath_name = "//div[contains(@class, 'label-group')]//a[contains(@class, 'name')]/text()"
     xpath_points = "//div[contains(@class, 'label-group')]//a[contains(@class, 'points')]/text()"
     name = doc.xpath(xpath_name)[0].to_s
     points = doc.xpath(xpath_points)[0].to_s
-    values = [name]
-    values += [/\d+/.match(points)[0].to_i]
-    values += [uri]
-    #attributes += doc.xpath("//div[@class='prop']/div[@class='info']/text()").map{|e| e.to_s}
-    #values += doc.xpath("//div[@class='prop']/div[@class='value']/text()").map{|e| e.to_s}
 
-    Hash[attributes.zip values]
+    phone_data[:name] = name
+    phone_data[:url] = uri
+    phone_data[:vs_url] = versus_top_phone_url
+    if /\d+/.match(points).nil?
+      phone_data[:points] = 0
+    else
+      phone_data[:points] = /\d+/.match(points)[0].to_i
+    end
+
+    phone_data
   end
 
   def self.get_phone_data_with_name(name)
@@ -48,7 +53,7 @@ module PhonesHelper
   def self.get_all_phones(phone_names)
     phone_names.map do |phone_name|
       self.get_phone_data_with_name(phone_name)
-    end.sort {|a,b| - (a['points'] <=> b['points'])}.compact
+    end.sort {|a,b| - (a[:points] <=> b[:points])}.compact
   end
 
 end

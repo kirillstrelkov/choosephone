@@ -20,8 +20,11 @@ ga('send', 'pageview')
 
 
 $(document).ready ->
-  $('table').hide()
   $('#search_btn').removeAttr('name')
+
+  $share_results = $('#share_results')
+  content = "<input class='form-control input-sm' value='" + window.location.href + "'>"
+  $share_results.popover({container: '.container', html: true, placement: 'left', 'content': content})
 
   $('#clear_btn').click (event)->
     event.preventDefault()
@@ -42,10 +45,11 @@ $(document).ready ->
     $.getJSON url, (resp)->
       url = resp.url
       lowestPrice = resp.lowestPrice
-      $price = $(element).parent().find('.price')
+      $price = $(element).parent().parent().find('.price')
       $price.text(lowestPrice)
       $price.prop('href', url)
       $price.show()
 
   $('.phone_name').each (index)->
     resp = set_price(this)
+

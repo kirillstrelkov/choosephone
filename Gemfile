@@ -13,8 +13,13 @@ gem 'rails_12factor', group: :production
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+
+  gem 'sprockets-rails', '~> 2.0.0.backport1'
+  gem 'sprockets', github: 'tessi/sprockets', branch: '2_2_2_backport2'
+  gem 'sass-rails', github: 'guilleiguaran/sass-rails', branch: 'backport'
+
+  gem 'bootstrap-sass', '~> 3.2.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
