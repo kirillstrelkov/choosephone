@@ -54,7 +54,7 @@ $(document).ready ->
 
   set_price = (element)->
     phone_name = $(element).prop('title')
-    url = encodeURI('/phones/amazon_search?phone_name=' + phone_name)
+    url = '/amazon/' + encodeURIComponent(phone_name)
     $.getJSON url, (resp)->
       url = resp.url
       lowestPrice = resp.lowestPrice
