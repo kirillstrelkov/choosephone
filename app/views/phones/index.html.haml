@@ -13,8 +13,33 @@
       %div{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-warning alert-dismissible'}
         %p
           =flash[:error]
+  -if @phones.empty?
+    %div{:class => 'panel panel-default'}
+      %div{:class => 'panel-heading'}
+        %h4{:class => 'panel-title'}
+          %strong
+            Easy to use:
+      %div{:class => 'panel-body'}
+        %div{:class => 'row'}
+          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
+            %div{:class => 'thumbnail'}
+              =image_tag "step1.png"
+              %div{:class => 'caption'}
+                %h4{:class => 'text-center'}
+                  1. Enter phones names
+          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
+            %div{:class => 'thumbnail'}
+              =image_tag "step2.png"
+              %div{:class => 'caption'}
+                %h4{:class => 'text-center'}
+                  2. Click 'Search and sort phones'
+          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
+            %div{:class => 'thumbnail'}
+              =image_tag "step3.png"
+              %div{:class => 'caption'}
+                %h4{:class => 'text-center'}
+                  3. Choose the best phone
 
-%div{:class => 'container'}
   %div{:class => 'row'}
     =form_tag '/phones/compare', :method => :get do
       %div{:class => 'form-group col-xs-12 col-sm-12 col-md-12'}
