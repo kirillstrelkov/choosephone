@@ -8,6 +8,9 @@ module PhonesHelper
   @@phone_url = "http://versus.com/en/%s"
   @@versus_vs = "http://versus.com/en/%s-vs-sony-xperia-z3"
   @@amazon_search = 'http://versus.com/amazon/search'
+  DEFAULT_TITLE = "Choose best phone between several ones"
+  DEFAULT_DESC = "If you are tired of comparing multiple phones' features and don't know which one to choose. This site will try to help you by sorting entered phones using their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia and etc. Functionality is based on http://www.versus.com/ web site."
+  DESC_PREFIX = "Which is the best phone?"
 
   def self.amazon_search(phone_name)
     uri = URI.encode("#{@@amazon_search}?keywords=#{phone_name}&category=phone")
@@ -51,9 +54,9 @@ module PhonesHelper
   end
 
   def self.get_all_phones(phone_names)
-    phone_names.map do |phone_name|
+    phone_names.compact.map do |phone_name|
       self.get_phone_data_with_name(phone_name)
-    end.sort {|a,b| - (a[:points] <=> b[:points])}.compact
+    end.sort {|a,b| - (a[:points] <=> b[:points])}.uniq
   end
 
 end

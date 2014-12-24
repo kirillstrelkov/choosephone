@@ -27,6 +27,8 @@ class PhonesController < ApplicationController
   end
 
   def compare
+    @description = DEFAULT_DESC
+    @title = DEFAULT_TITLE
     @phones = []
     @commit = params[:commit]
 
@@ -41,12 +43,16 @@ class PhonesController < ApplicationController
       redirect_to action: 'index'
     else
       @phones = PhonesHelper.get_all_phones(@query.split(','))
+      @title = @phones.map {|p| p[:name].strip}.join(' vs ')
+      @description = DESC_PREFIX + " " + @title + " ?"
       render :index
     end
   end
 
   def index
     @query = nil
+    @description = DEFAULT_DESC
+    @title = DEFAULT_TITLE
     @phones = []
   end
 
