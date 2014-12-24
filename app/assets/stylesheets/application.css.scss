@@ -11,3 +11,9 @@
  *= require_self
  *= require_tree .
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.popover {
+    max-width: 100%;
+}
