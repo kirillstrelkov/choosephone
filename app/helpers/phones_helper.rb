@@ -7,15 +7,9 @@ module PhonesHelper
   @@url = 'http://www.versus.com'
   @@phone_url = "http://versus.com/en/%s"
   @@versus_vs = "http://versus.com/en/%s-vs-sony-xperia-z3"
-  @@amazon_search = 'http://versus.com/amazon/search'
   DEFAULT_TITLE = "Choose best phone between several ones"
   DEFAULT_DESC = "If you are tired of comparing multiple phones' features and don't know which one to choose. This site will try to help you by sorting entered phones using their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia and etc. Functionality is based on http://www.versus.com/ web site."
   DESC_PREFIX = "Which is the best phone?"
-
-  def self.amazon_search(phone_name)
-    uri = URI.encode("#{@@amazon_search}?keywords=#{phone_name}&category=phone")
-    JSON.parse(open(uri).read())
-  end
 
   def self.get_phone_names_json(name)
     uri = URI.encode("#{@@url}/object?q=#{name}")

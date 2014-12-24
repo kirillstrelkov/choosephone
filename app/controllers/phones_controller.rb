@@ -1,31 +1,6 @@
 class PhonesController < ApplicationController
   include PhonesHelper
 
-  def amazon_search
-    name = params['phone_name']
-    if name.nil?
-      data = {}
-    else
-      data = PhonesHelper.amazon_search(name)
-    end
-    respond_to do |format|
-      format.json {render :json => data}
-    end
-  end
-
-  def search
-    name = params['q']
-    if name.nil?
-      flash[:notice] = "Parameter 'q' was not passed"
-      redirect_to action: 'index'
-    else
-      @phones = PhonesHelper.get_phone_names_json(name)
-      respond_to do |format|
-        format.json {render :json => @phones}
-      end
-    end
-  end
-
   def compare
     @description = DEFAULT_DESC
     @title = DEFAULT_TITLE
@@ -55,17 +30,5 @@ class PhonesController < ApplicationController
     @title = DEFAULT_TITLE
     @phones = []
   end
-
-  def data
-    name_url = params['name_url']
-    if name_url.nil?
-      flash[:notice] = "Parameter 'name_url' was not passed"
-      redirect_to action: 'index'
-    else
-      @phone_data = PhonesHelper.get_phone_data(name_url)
-      respond_to do |format|
-        format.json {render :json => @phone_data}
-      end
-    end
-  end
+  
 end
