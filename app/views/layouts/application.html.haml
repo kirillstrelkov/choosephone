@@ -11,6 +11,6 @@
     %meta{:content => "width=device-width, user-scalable=no", :name => "viewport"}
     %meta{:content => @title, :name => 'og:title'}
     %meta{:content => @description, :name => 'og:description'}
-    %meta{:content => image_tag("share_picture.png"), :name => 'og:image'}
+    %meta{:content => asset_path("share_picture.png"), :name => 'og:image'}
   %body
     = yield
