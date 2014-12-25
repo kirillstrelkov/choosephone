@@ -43,7 +43,7 @@ $(document).ready ->
     max_chars = 50
     content = "Link to share: "
   else
-    max_chars = 25
+    max_chars = 22
     content = ""
   text = decodeURI(href).substring(0, max_chars - 3) + '...'
   content += "<a href='#{href}' target='_blank'>#{text}</a>"
