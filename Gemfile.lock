@@ -141,22 +141,6 @@ GEM
     rake (10.3.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    rspec-core (3.0.3)
-      rspec-support (~> 3.0.0)
-    rspec-expectations (3.0.3)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.0.0)
-    rspec-mocks (3.0.3)
-      rspec-support (~> 3.0.0)
-    rspec-rails (3.0.2)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 3.0.0)
-      rspec-expectations (~> 3.0.0)
-      rspec-mocks (~> 3.0.0)
-      rspec-support (~> 3.0.0)
-    rspec-support (3.0.3)
     sass (3.4.9)
     sprockets-rails (2.0.0.backport1)
       actionpack (>= 3.0)
@@ -189,7 +173,6 @@ DEPENDENCIES
   nokogiri
   rails (= 3.2.14)
   rails_12factor
-  rspec-rails
   sass-rails!
   sprockets!
   sprockets-rails (~> 2.0.0.backport1)

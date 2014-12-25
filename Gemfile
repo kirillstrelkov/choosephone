@@ -37,7 +37,6 @@ group :test do
   gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
-  gem 'rspec-rails'
 end
 
 # To use ActiveModel has_secure_password
