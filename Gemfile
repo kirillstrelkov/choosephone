@@ -30,13 +30,10 @@ end
 gem 'jquery-rails'
 gem 'nokogiri'
 gem 'haml-rails'
-#gem 'boostrap-form'
 
 group :test do
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'cucumber-rails', :require => false
-  gem 'database_cleaner'
 end
 
 # To use ActiveModel has_secure_password

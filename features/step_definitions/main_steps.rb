@@ -3,19 +3,19 @@ Given(/^I am on main page$/) do
 end
 
 Then(/^I should see main form$/) do
-  expect(page).to have_css('form')
+  assert page.has_css? 'form'
 end
 
 Then(/^I should see textarea field$/) do
-  expect(page).to have_css('textarea')
+  assert page.has_css? 'textarea'
 end
 
 Then(/^I should see '(.+)' button$/) do |name|
-  expect(page).to have_button(name)
+  assert page.has_button? name
 end
 
-Then(/^I should not see 'Clear' button$/) do 
-  expect(page).to have_selector('#clear_btn', visible: false)
+Then(/^I should not see '(.+)' button$/) do |name|
+  assert page.has_button? name, :visible => false
 end
 
 When(/^I fill in textarea with '(.+)'$/) do |phones|
@@ -27,22 +27,32 @@ When(/^I click '(.+)' button$/) do |text|
 end
 
 Then(/^I should see '(.+)' before '(.+)'$/) do |phone1, phone2|
-  expect(page.body.index(phone1)).to be < page.body.index(phone2)
+  assert page.body.index(phone1) < page.body.index(phone2)
 end
 
 Then(/^I should see '(.+)' on page$/) do |text|
-  expect(page.body).to have_text(text)
+  assert page.has_text? text
 end
 
 Then(/^I should not see '(.+)' on page$/) do |text|
-  expect(page.body).not_to have_text(text)
+  assert page.has_no_text? text
 end
 
 Then(/^'(.+)' field value should be '(.*)'$/) do |selector, value|
-  expect(page.find(selector).value).to eq value
+  assert_equal page.find(selector).value, value
 end
 
 Then(/^I should not see '(.+)' in table$/) do |text|
-  expect(page.find('ul')).not_to have_text(text)
+  assert page.find('ul').not_to have_text(text)
 end
 
+Then(/^I should not see noscript message$/) do
+  assert page.has_css? 'noscript', :visible => false
+end
+
+Then(/^points are correct for '(.+)'$/) do |phone_name|
+  row = page.find(:xpath, "//*[@title='#{phone_name}']/../..")
+  points = row.first(:css, '.phone_points').text
+  assert_match(/^\d+$/, points)
+  assert points.to_i > 0
+end
