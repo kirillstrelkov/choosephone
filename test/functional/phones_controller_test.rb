@@ -5,4 +5,8 @@ class PhonesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
   end
+  test "should get compare" do
+    get :compare
+    assert_redirected_to :action => :index
+  end
 end
