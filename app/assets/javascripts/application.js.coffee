@@ -36,7 +36,17 @@ $(document).ready ->
   $('#search_btn').removeAttr('name')
 
   $share_results = $('#share_results')
-  content = "Link to share: <a href='#{window.location.href}' target='_blank'>#{window.location.href}</a>"
+  href = window.location.href
+  max_client_width = 620
+  cur_client_width = window.innerWidth
+  if cur_client_width > max_client_width
+    max_chars = 50
+    content = "Link to share: "
+  else
+    max_chars = 25
+    content = ""
+  text = decodeURI(href).substring(0, max_chars - 3) + '...'
+  content += "<a href='#{href}' target='_blank'>#{text}</a>"
   $share_results.popover({container: '.container', html: true, placement: 'left', 'content': content})
 
   $('#clear_btn').click (event)->
