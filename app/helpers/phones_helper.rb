@@ -6,7 +6,7 @@ require 'open-uri'
 module PhonesHelper
   VERSUS_URL = 'http://www.versus.com'
   PHONE_URL = "http://versus.com/en/%s"
-  VERSUS_URL_WITH_TO_PHONE = "http://versus.com/en/%s-vs-sony-xperia-z3"
+  VERSUS_URL_WITH_TO_PHONE = "http://versus.com/en/%s-vs-lg-g4-h818n"
   DEFAULT_TITLE = "Choose best phone between several ones"
   DEFAULT_DESC = "If you are tired of comparing multiple phones' features and don't know which one to choose. This site will try to help you by sorting entered phones using their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia and etc. Functionality is based on http://www.versus.com/ web site."
   DESC_PREFIX = "Which is the best phone?"

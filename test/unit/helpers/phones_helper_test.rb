@@ -3,7 +3,7 @@ require 'test_helper'
 class PhonesHelperTest < ActionView::TestCase
   include PhonesHelper
   
-  test "top phone is sony z3 and versus_url_with_top_phone is correct" do
+  test "top phone is lg g4 h818n and versus_url_with_top_phone is correct" do
     url = 'http://versus.com/en/phone/top'
     
     doc = Nokogiri::HTML(open(url))
@@ -22,7 +22,7 @@ class PhonesHelperTest < ActionView::TestCase
     assert_not_nil obj
     assert_equal obj[:name], "Sony Xperia Z3"
     assert_equal obj[:url], "http://versus.com/en/sony-xperia-z3"
-    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-sony-xperia-z3"
+    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-lg-g4-h818n"
     assert obj[:points] > 24000
   end
   
@@ -31,7 +31,7 @@ class PhonesHelperTest < ActionView::TestCase
     assert_not_nil obj
     assert_equal obj[:name], "Sony Xperia Z3"
     assert_equal obj[:url], "http://versus.com/en/sony-xperia-z3"
-    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-sony-xperia-z3"
+    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-lg-g4-h818n"
     assert obj[:points] > 24000
   end
   
