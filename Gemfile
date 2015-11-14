@@ -31,6 +31,10 @@ gem 'jquery-rails'
 gem 'nokogiri'
 gem 'haml-rails'
 
+group :development, :test do
+  gem 'debugger'
+end
+
 group :test do
   gem 'capybara'
   gem 'cucumber-rails', :require => false

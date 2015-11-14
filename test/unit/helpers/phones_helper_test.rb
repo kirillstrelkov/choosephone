@@ -22,8 +22,8 @@ class PhonesHelperTest < ActionView::TestCase
     assert_not_nil obj
     assert_equal obj[:name], "Sony Xperia Z3"
     assert_equal obj[:url], "http://versus.com/en/sony-xperia-z3"
-    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-lg-g4-h818n"
-    assert obj[:points] > 24000
+    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z5-premium-dual-vs-sony-xperia-z3"
+    assert obj[:points] > 24000, "Incorrect number of points: #{obj[:points]}"
   end
   
   test "get_phone_data_with_name" do
@@ -31,8 +31,8 @@ class PhonesHelperTest < ActionView::TestCase
     assert_not_nil obj
     assert_equal obj[:name], "Sony Xperia Z3"
     assert_equal obj[:url], "http://versus.com/en/sony-xperia-z3"
-    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z3-vs-lg-g4-h818n"
-    assert obj[:points] > 24000
+    assert_equal obj[:vs_url], "http://versus.com/en/sony-xperia-z5-premium-dual-vs-sony-xperia-z3"
+    assert obj[:points] > 24000, "Incorrect number of points: #{obj[:points]}"
   end
   
   test "get_all_phones" do
