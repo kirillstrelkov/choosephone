@@ -1,9 +1,12 @@
 require 'json'
 require 'nokogiri'
 require 'open-uri'
+require 'capybara'
+require 'capybara/poltergeist'
 
+module VersusComHelper
+  extend Capybara::DSL
 
-module PhonesHelper
   VERSUS_URL = 'http://www.versus.com'
   PHONE_URL = "http://versus.com/en/%s"
   VERSUS_URL_WITH_TO_PHONE = "http://versus.com/en/sony-xperia-z5-premium-dual-vs-%s"
@@ -13,7 +16,7 @@ module PhonesHelper
 
   def self.get_phone_names_json(name)
     uri = URI.encode("#{VERSUS_URL}/object?q=#{name}")
-    JSON.parse(open(uri).read())
+    JSON.parse(open(uri).read)
   end
 
   def self.get_phone_data(name_url)
@@ -21,25 +24,16 @@ module PhonesHelper
     versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE % name_url
     phone_data = {:name => 'Unknown',
                   :points => -1,
-                  :price => nil,
                   :url => uri,
                   :vs_url => versus_top_phone_url}
 
-    doc = Nokogiri::HTML(open(URI.encode(uri)))
-
-    names = doc.css('.title')
+    names = Nokogiri::HTML(open(URI.encode(uri))).css('.title')
     unless names.empty?
       name = names[0].text.strip
       phone_data[:name] = name
     end
 
-    points = doc.css('.points-text')
-    unless points.empty?
-      points = points[0].text.strip
-      unless /\d+/.match(points).nil?
-        phone_data[:points] = /\d+/.match(points)[0].to_i
-      end
-    end
+    phone_data[:points] = get_points(uri)
 
     phone_data
   end
@@ -51,18 +45,27 @@ module PhonesHelper
     end
   end
 
-  def self.get_all_phones(phone_names)
-    phone_names.uniq.map do |phone_name|
-      self.get_phone_data_with_name(phone_name)
-    end.sort {|a,b| - (a[:points] <=> b[:points])}.uniq
-  end
+  private
 
-  def show_price(price)
-    price.is_a?(String) && price.match(/.?\d+\.\d+/) ? price : 'Loading...'
+  def self.get_points(url)
+    visit(url)
+    times_for_found_points = 8
+    same_times = 0
+    points = 0
+    30.times do
+      doc = Nokogiri::HTML(page.html)
+      cur_points = doc.css('.points-text')
+      break if points > 0 && same_times == times_for_found_points
+      if !cur_points.nil? && !cur_points.empty?
+        cur_points = cur_points[0].text.scan(/\d+/).join('').to_i
+        if points == cur_points
+          same_times += 1
+        else
+          same_times = 0
+        end
+        points = cur_points
+      end
+    end
+    points > 0 ? points : -1
   end
-
-  def show_points(points)
-    points.is_a?(String) && points.match(/\d+/) ? points : 'Loading...'
-  end
-
 end

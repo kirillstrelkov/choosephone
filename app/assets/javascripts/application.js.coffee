@@ -73,5 +73,36 @@ $(document).ready ->
       $price.prop('href', url)
       $price.show()
 
+  set_points_and_sort = (element)->
+    phone_name = $(element).prop('title')
+    url = '/versuscom/' + encodeURIComponent(phone_name)
+    $.getJSON url, (resp)->
+      name = resp.name
+      points = resp.points
+      vs_url = resp.vs_url
+      $points = $(element).parent().parent().find('.phone_points')
+      $points.text(points)
+      $points.prop('href', vs_url)
+      sort()
+
+  sort = ->
+    points = $('.phone_points').map (a)->
+      value = parseInt($(this).text())
+      if isNaN(value) then -1 else value
+    points = points.toArray()
+    points.sort()
+    points.reverse()
+    if $.inArray(-1, points) == -1
+      $(points).each (i, point)->
+        $('.phone_points').each (j, $point)->
+          if point == parseInt($($point).text())
+            $parent = $($point).parent().parent()
+            $('tbody').append($parent)
+            $parent.find('.place').text(points.indexOf(point) + 1)
+          undefined
+        undefined
+      undefined
+
   $('.phone_name').each (index)->
     resp = set_price(this)
+    reps = set_points_and_sort(this)

@@ -2,7 +2,7 @@
   %div{:class => 'row'}
     %noscript{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
       %p
-        Please enable Javascript otherwise you will not be able to use all features
+        Please enable Javascript otherwise this application is useless
   -if !flash[:notice].nil?
     %div{:class => 'row'}
       %div{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
@@ -74,13 +74,14 @@
             -@phones.each  do |phone|
               -index = @phones.index(phone) + 1
               %tr
-                %td
+                %td{class: 'place'}
                   =index
                 %td
                   %span{:class => 'phone_name', :title => phone[:name]}
                     =link_to phone[:name], phone[:url], :target => '_blank'
                 %td
                   %a{:class => 'price', :title => "Possible price for '#{phone[:name]}' on Amazon", 'href' => '', :target => '_blank'}
+                    =show_price(phone[:price])
                 %td
                   %a{:class => 'phone_points', :title => "Compare '#{phone[:name]}' with top phone on versus.com", 'href' => phone[:vs_url], :target => '_blank'}
-                    =phone[:points]
+                    =show_price(phone[:points])
