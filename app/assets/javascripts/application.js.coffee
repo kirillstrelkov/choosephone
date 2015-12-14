@@ -35,6 +35,8 @@ ga('send', 'pageview')
 $(document).ready ->
   $('#search_btn').removeAttr('name')
 
+  no_data_msg = 'No data'
+
   $share_results = $('#share_results')
   href = window.location.href
   max_client_width = 620
@@ -62,47 +64,51 @@ $(document).ready ->
       delay 1000, ->
         $('#notice').hide('slow')
 
-  set_price = (element)->
-    phone_name = $(element).prop('title')
+  set_price = (phone)->
+    phone_name = $(phone).find('td.name a').prop('title')
     url = '/amazon/' + encodeURIComponent(phone_name)
     $.getJSON url, (resp)->
       url = resp.url
       lowestPrice = resp.lowestPrice
-      $price = $(element).parent().parent().find('.price')
-      $price.text(lowestPrice)
-      $price.prop('href', url)
-      $price.show()
+      $price = $(phone).find('td.price a')
+      if lowestPrice
+        $price.text(lowestPrice)
+        $price.prop('href', url)
+      else
+        $price.parent().text(no_data_msg)
 
-  set_points_and_sort = (element)->
-    phone_name = $(element).prop('title')
+  set_points = (phone)->
+    $phone = $(phone)
+    $name = $(phone).find('td.name a')
+    phone_name = $name.prop('title')
     url = '/versuscom/' + encodeURIComponent(phone_name)
     $.getJSON url, (resp)->
-      name = resp.name
-      points = resp.points
-      vs_url = resp.vs_url
-      $points = $(element).parent().parent().find('.phone_points')
-      $points.text(points)
-      $points.prop('href', vs_url)
-      sort()
+      $points = $phone.find('td.points a')
+      if resp.points > 0
+        $points.text(resp.points)
+        $points.prop('href', resp.vs_url)
+      else
+        $points.parent().text(no_data_msg)
+      points = $('td.points').map ()->
+        text = $(this).text().trim()
+        value = parseInt(text)
+        if isNaN(value) then text else value
+      good_points = points.filter (i, e)->
+        e > 0 or e == no_data_msg
+      all_elements_are_loaded = points.length == good_points.length
+      if all_elements_are_loaded
+        sort(points)
 
-  sort = ->
-    points = $('.phone_points').map (a)->
-      value = parseInt($(this).text())
-      if isNaN(value) then -1 else value
-    points = points.toArray()
+  sort = (points)->
     points.sort()
-    points.reverse()
-    if $.inArray(-1, points) == -1
-      $(points).each (i, point)->
-        $('.phone_points').each (j, $point)->
-          if point == parseInt($($point).text())
-            $parent = $($point).parent().parent()
-            $('tbody').append($parent)
-            $parent.find('.place').text(points.indexOf(point) + 1)
-          undefined
-        undefined
-      undefined
+    $(points).each (i, point)->
+      $('td.points a').each (j, $point)->
+        if point == parseInt($($point).text())
+          $parent = $($point).parent().parent()
+          $('tbody').prepend($parent)
+    $('tr.phone').each (i, phone)->
+      $(phone).find('td.place').text(i + 1)
 
-  $('.phone_name').each (index)->
-    resp = set_price(this)
-    reps = set_points_and_sort(this)
+  $('.phone').each (index)->
+    set_price(this)
+    set_points(this)

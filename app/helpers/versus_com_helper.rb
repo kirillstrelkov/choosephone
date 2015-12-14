@@ -49,7 +49,7 @@ module VersusComHelper
 
   def self.get_points(url)
     visit(url)
-    times_for_found_points = 8
+    times_for_found_points = 10
     same_times = 0
     points = 0
     30.times do

@@ -1,87 +1,84 @@
-%div{:class => 'container'}
-  %div{:class => 'row'}
-    %noscript{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
+%div{class: 'container'}
+  %div{class: 'row'}
+    %noscript{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
       %p
         Please enable Javascript otherwise this application is useless
   -if !flash[:notice].nil?
-    %div{:class => 'row'}
-      %div{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
+    %div{class: 'row'}
+      %div{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
         %p
           =flash[:notice]
   -if !flash[:error].nil?
-    %div{:class => 'row'}
-      %div{:class => 'col-xs-12 col-sm-12 col-md-12 alert alert-warning alert-dismissible'}
+    %div{class: 'row'}
+      %div{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-warning alert-dismissible'}
         %p
           =flash[:error]
   -if @phones.empty?
-    %div{:class => 'panel panel-default'}
-      %div{:class => 'panel-heading'}
-        %h4{:class => 'panel-title'}
+    %div{class: 'panel panel-default'}
+      %div{class: 'panel-heading'}
+        %h4{class: 'panel-title'}
           %strong
             Easy to use:
-      %div{:class => 'panel-body'}
-        %div{:class => 'row'}
-          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
-            %div{:class => 'thumbnail'}
+      %div{class: 'panel-body'}
+        %div{class: 'row'}
+          %div{class: 'col-xs-12 col-sm-4 col-md-4'}
+            %div{class: 'thumbnail'}
               =image_tag "step1.png"
-              %div{:class => 'caption'}
-                %h4{:class => 'text-center'}
+              %div{class: 'caption'}
+                %h4{class: 'text-center'}
                   1. Enter phones names
-          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
-            %div{:class => 'thumbnail'}
+          %div{class: 'col-xs-12 col-sm-4 col-md-4'}
+            %div{class: 'thumbnail'}
               =image_tag "step2.png"
-              %div{:class => 'caption'}
-                %h4{:class => 'text-center'}
+              %div{class: 'caption'}
+                %h4{class: 'text-center'}
                   2. Click 'Search and sort phones'
-          %div{:class => 'col-xs-12 col-sm-4 col-md-4'}
-            %div{:class => 'thumbnail'}
+          %div{class: 'col-xs-12 col-sm-4 col-md-4'}
+            %div{class: 'thumbnail'}
               =image_tag "step3.png"
-              %div{:class => 'caption'}
-                %h4{:class => 'text-center'}
+              %div{class: 'caption'}
+                %h4{class: 'text-center'}
                   3. Choose the best phone
 
-  %div{:class => 'row'}
-    =form_tag '/phones/compare', :method => :get do
-      %div{:class => 'form-group col-xs-12 col-sm-12 col-md-12'}
-        %div{:class => 'form-group col-xs-12 col-sm-12 col-md-12'}
-          =text_area_tag 'phone_names', @query, :class => 'form-control', :autofocus => true ,:placeholder => "Enter here list of interested phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
-        %div{:class => 'form-group'}
-          %div{:class => 'col-xs-12 col-sm-12 col-md-12'}
-            =button_tag 'Clear', :id=> 'clear_btn', :class => 'btn btn-default', :type => 'submit', :name => 'commit', :value => 'clear'
-            =button_tag 'Search and sort phones', :id=> 'search_btn', :class => 'btn btn-primary', :type => 'submit', :name => 'commit', :value => 'search'
+  %div{class: 'row'}
+    =form_tag '/phones/compare', method: :get do
+      %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
+        %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
+          =text_area_tag 'phone_names', @query, class: 'form-control', autofocus: true , placeholder: "Enter here list of interested phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
+        %div{class: 'form-group'}
+          %div{class: 'col-xs-12 col-sm-12 col-md-12'}
+            =button_tag 'Clear', id: 'clear_btn', class: 'btn btn-default', type: 'submit', name: 'commit', value: 'clear'
+            =button_tag 'Search and sort phones', id: 'search_btn', class: 'btn btn-primary', type: 'submit', name: 'commit', value: 'search'
 -if !@phones.empty?
-  %div{:class => 'container'}
-    %div{:class => 'row'}
-      %div{:class => 'col-xs-6 col-sm-6 col-md-6'}
+  %div{class: 'container'}
+    %div{class: 'row'}
+      %div{class: 'col-xs-6 col-sm-6 col-md-6'}
         %h4
           Sorted phones:
-      %div{:class => 'col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-4 col-md-offset-4'}
-        %button{:id => 'share_results', :class => 'btn btn-info pull-right', 'data-loading-text'=>"Generating link to share, please wait..."}
+      %div{class: 'col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-4 col-md-offset-4'}
+        %button{id: 'share_results', class: 'btn btn-info pull-right', 'data-loading-text'=>"Generating link to share, please wait..."}
           Share results
-    %div{:class => 'row'}
-      %div{:class => 'col-xs-12 col-sm-12 col-md-12'}
-        %table{:class => 'table table-condensed table-responsive table-hover'}
+    %div{class: 'row'}
+      %div{class: 'col-xs-12 col-sm-12 col-md-12'}
+        %table{class: 'table table-condensed table-responsive table-hover'}
           %thead
             %tr
-              %th #
-              %th{:class => 'col-xs-8 col-sm-8 col-md-8'}
+              %th
+              %th{class: 'col-xs-8 col-sm-8 col-md-8'}
                 Phone model
-              %th{:class => 'col-xs-2 col-sm-2 col-md-2'}
+              %th{class: 'col-xs-2 col-sm-2 col-md-2'}
                 Possible price
-              %th{:class => 'col-xs-2 col-sm-2 col-md-2'}
+              %th{class: 'col-xs-2 col-sm-2 col-md-2'}
                 Total points
           %tbody
             -@phones.each  do |phone|
               -index = @phones.index(phone) + 1
-              %tr
+              %tr{class: 'phone'}
                 %td{class: 'place'}
                   =index
-                %td
-                  %span{:class => 'phone_name', :title => phone[:name]}
-                    =link_to phone[:name], phone[:url], :target => '_blank'
-                %td
-                  %a{:class => 'price', :title => "Possible price for '#{phone[:name]}' on Amazon", 'href' => '', :target => '_blank'}
-                    =show_price(phone[:price])
-                %td
-                  %a{:class => 'phone_points', :title => "Compare '#{phone[:name]}' with top phone on versus.com", 'href' => phone[:vs_url], :target => '_blank'}
-                    =show_price(phone[:points])
+                %td{class: 'name'}
+                  =link_to phone[:name], phone[:url], title: phone[:name], target: '_blank'
+                %td{class: 'price'}
+                  =link_to show_price(phone[:price]), title: "Possible price for '#{phone[:name]}' on Amazon", href: '#', target: '_blank'
+                %td{class: 'points'}
+                  =link_to show_price(phone[:points]), title: "Compare '#{phone[:name]}' with top phone on versus.com", href: phone[:vs_url], target: '_blank'
