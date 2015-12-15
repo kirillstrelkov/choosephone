@@ -1,15 +1,14 @@
 class AmazonController < ApplicationController
   include AmazonHelper
+  include RedisHelper
 
-  def get_price
-    name = params['phone_name']
-    if name.nil?
-      data = {}
-    else
+  def price
+    name = params[:phone_name]
+    data = get(:amazon, name)
+    unless data
       data = AmazonHelper.get_price(name)
+      set(:amazon, name, data)
     end
-    respond_to do |format|
-      format.json {render :json => data}
-    end
+    render json: data
   end
 end

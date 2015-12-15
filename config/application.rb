@@ -6,7 +6,6 @@ require 'active_model/railtie'
 require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -26,5 +25,6 @@ module Goodphone
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.cache_store = :redis_store, ENV["REDIS_URL"] || 'redis://localhost:6379', { db: 0, namespace: 'cache', expires_in: 1.day }
   end
 end

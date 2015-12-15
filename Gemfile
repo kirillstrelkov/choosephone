@@ -17,6 +17,7 @@ gem 'nokogiri'
 gem 'haml-rails'
 gem 'capybara'
 gem 'poltergeist'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'byebug'

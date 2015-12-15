@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'amazon/:phone_name' => 'amazon#get_price'
-  get 'versuscom/:phone_name' => 'versus_com#get_points', defaults: { :format => 'json' }
+  get 'amazon/:phone_name' => 'amazon#price', defaults: { format: 'json' }
+  get 'versuscom/:phone_name' => 'versus_com#points', defaults: { format: 'json' }
 
   get 'phones/index'
   get 'phones/compare'
