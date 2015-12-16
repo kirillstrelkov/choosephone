@@ -7,7 +7,8 @@ class AmazonController < ApplicationController
     data = get(:amazon, name)
     unless data
       data = AmazonHelper.get_price(name)
-      set(:amazon, name, data)
+      set(:amazon, name, data) if data[:lowestPrice] &&
+                                  data[:lowestPrice].match(/^\$\d+\.\d+$/)
     end
     render json: data
   end

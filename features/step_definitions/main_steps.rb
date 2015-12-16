@@ -1,17 +1,17 @@
 Given(/^I am on main page$/) do
-  visit 'phones/index'
+  visit('http://localhost:3000/')
 end
 
 Then(/^I should see main form$/) do
-  assert page.has_css? 'form'
+  assert_selector('form', count: 1)
 end
 
 Then(/^I should see textarea field$/) do
-  assert page.has_css? 'textarea'
+  assert_selector('textarea', count: 1)
 end
 
 Then(/^I should see '(.+)' button$/) do |name|
-  assert page.has_button? name
+  assert_selector('button', text: name, count: 1)
 end
 
 Then(/^I should not see '(.+)' button$/) do |name|
@@ -27,32 +27,39 @@ When(/^I click '(.+)' button$/) do |text|
 end
 
 Then(/^I should see '(.+)' before '(.+)'$/) do |phone1, phone2|
-  assert page.body.index(phone1) < page.body.index(phone2)
+  text = page.text
+  expect(text.index(phone1)).to be < text.index(phone2)
 end
 
 Then(/^I should see '(.+)' on page$/) do |text|
-  assert page.has_text? text
+  assert_text(text)
 end
 
 Then(/^I should not see '(.+)' on page$/) do |text|
-  assert page.has_no_text? text
+  assert_no_text(text)
 end
 
 Then(/^'(.+)' field value should be '(.*)'$/) do |selector, value|
-  assert_equal page.find(selector).value, value
+  expect(find(selector).value).to eq(value)
 end
 
 Then(/^I should not see '(.+)' in table$/) do |text|
   assert page.find('ul').not_to have_text(text)
 end
 
-Then(/^I should not see noscript message$/) do
-  assert page.has_css? 'noscript', :visible => false
+Then(/^points are correct for '(.+)'$/) do |phone_name|
+  points = find(
+    :xpath,
+    "//a[@title='#{phone_name}']/../../*[@class='points']"
+  ).text
+  expect(points).to match(/\d+/)
+  expect(points.to_i).to be > 30_000
 end
 
-Then(/^points are correct for '(.+)'$/) do |phone_name|
-  row = page.find(:xpath, "//*[@title='#{phone_name}']/../..")
-  points = row.first(:css, '.phone_points').text
-  assert_match(/^\d+$/, points)
-  assert points.to_i > 0
+Then(/^price is correct for '(.+)'$/) do |phone_name|
+  points = find(
+    :xpath,
+    "//a[@title='#{phone_name}']/../../*[@class='price']"
+  ).text
+  expect(points).to match(/\$\d+\.\d+/)
 end

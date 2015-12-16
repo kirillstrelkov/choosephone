@@ -1,7 +1,4 @@
 Feature: Search for phones
-  Scenario: Noscript message is not visible
-    Given I am on main page
-    Then I should not see noscript message
 
   Scenario: User can see basic form
     Given I am on main page
@@ -20,8 +17,8 @@ Feature: Search for phones
     Given I am on main page
     When I fill in textarea with 'LG L9, LG Nexus 5'
     And I click 'Search' button
-    Then I should see 'LG Nexus 5' before 'LG Optimus L9'
-  
+    Then I should see 'LG Optimus L9' before 'LG Nexus 5'
+
   Scenario: User searches for one phone and query is saved
     Given I am on main page
     When I fill in textarea with 'LG L9'
@@ -34,5 +31,7 @@ Feature: Search for phones
     And I click 'Search' button
     Then I should see 'Sony Xperia Z3' on page
     And points are correct for 'Sony Xperia Z3'
+    And price is correct for 'Sony Xperia Z3'
     And I should see 'Sony Xperia Z2' on page
     And points are correct for 'Sony Xperia Z2'
+    And price is correct for 'Sony Xperia Z2'
