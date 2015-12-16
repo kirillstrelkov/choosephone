@@ -47,7 +47,7 @@ module PhonesHelper
   def self.get_phone_data_with_name(name)
     object = self.get_phone_names_json(name.strip)
     if !object.nil? && !object.empty?
-      self.get_phone_data(object[0]['name_url'])
+      s = self.get_phone_data(object[0]['name_url'])
     end
   end
 

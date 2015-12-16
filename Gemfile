@@ -19,8 +19,13 @@ gem 'capybara'
 gem 'poltergeist'
 gem 'redis-rails'
 
+group :development do
+  gem 'guard-rspec', require: false
+end
+
 group :development, :test do
   gem 'byebug'
+  gem 'rspec-rails'
 end
 
 group :test do
