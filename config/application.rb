@@ -26,7 +26,7 @@ module Goodphone
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     redis_conf = YAML.load(
-      File.read(File.join('config', 'redis.yml'))
+      ERB.new(File.read(File.join('config', 'redis.yml'))).result
     )[Rails.env.to_s]
     config.cache_store = [
       :redis_store,
