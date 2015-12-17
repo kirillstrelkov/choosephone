@@ -9,6 +9,6 @@ test:
   db: 2
 
 production:
-  url: <%= ENV["REDIS_URL"] %>
+  url: <%= ENV['REDIS_URL'] %>
   namespace: production_cache
   db: 0
