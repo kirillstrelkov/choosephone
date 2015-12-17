@@ -18,7 +18,7 @@ RSpec.describe PhonesController, type: :controller do
 
   describe 'GET #compare' do
     context 'without parameters' do
-      it 'returns http success' do
+      it 'redirects to index' do
         get :compare
         expect(response).to redirect_to(phones_index_url)
       end

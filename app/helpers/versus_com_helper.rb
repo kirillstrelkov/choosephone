@@ -1,31 +1,38 @@
 require 'json'
-require 'nokogiri'
 require 'open-uri'
 require 'capybara'
 require 'capybara/poltergeist'
 
 module VersusComHelper
-  extend Capybara::DSL
+  include Capybara::DSL
 
   VERSUS_URL = 'http://www.versus.com'
-  PHONE_URL = "http://versus.com/en/%s"
-  VERSUS_URL_WITH_TO_PHONE = "http://versus.com/en/sony-xperia-z5-premium-dual-vs-%s"
-  DEFAULT_TITLE = "Choose best phone between several ones"
-  DEFAULT_DESC = "If you are tired of comparing multiple phones' features and don't know which one to choose. This site will try to help you by sorting entered phones using their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia and etc. Functionality is based on http://www.versus.com/ web site."
-  DESC_PREFIX = "Which is the best phone?"
+  VERSUS_URL_WITH_TO_PHONE = 'http://versus.com/en/sony-xperia-z5-premium-dual-vs-'
+  AMAZON_SEARCH_URL = 'http://versus.com/pricetags/get'
 
-  def self.get_phone_names_json(name)
+  def get_price(phone_name)
+    uri = URI.encode("#{AMAZON_SEARCH_URL}?keywords=#{phone_name}")
+    begin
+      json_obj = JSON.parse(open(uri).read, symbolize_names: true)
+      json_obj[:pricetags][0]
+    rescue
+      { error: 'Unknown error occurred' }
+    end
+  end
+
+  def get_phone_names_json(name)
     uri = URI.encode("#{VERSUS_URL}/object?q=#{name}")
     JSON.parse(open(uri).read)
   end
 
-  def self.get_phone_data(name_url)
-    uri = URI.encode(PHONE_URL % name_url)
-    versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE % name_url
+  def get_phone_data(name_url, load_points=true)
+    uri = URI.encode('http://versus.com/en/' + name_url)
+    versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE + name_url
     phone_data = { name: 'Unknown',
                    points: -1,
                    url: uri,
-                   vs_url: versus_top_phone_url }
+                   vs_url: versus_top_phone_url,
+                   price: nil }
 
     visit(uri)
     names = all(:css, '.title')
@@ -34,21 +41,20 @@ module VersusComHelper
       phone_data[:name] = name
     end
 
-    phone_data[:points] = get_points
+    phone_data[:points] = get_points if load_points
 
     phone_data
   end
 
-  def self.get_phone_data_with_name(name)
+  def get_phone_data_with_name(name, load_points = true)
     object = get_phone_names_json(name.strip)
-    if !object.nil? && !object.empty?
-      self.get_phone_data(object[0]['name_url'])
-    end
+    get_phone_data(object.first['name_url'], load_points) \
+      if !object.nil? && !object.empty?
   end
 
   private
 
-  def self.get_points
+  def get_points
     times_for_found_points = 3
     same_times = 0
     points = 0

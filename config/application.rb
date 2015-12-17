@@ -25,6 +25,15 @@ module Goodphone
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.cache_store = :redis_store, ENV["REDIS_URL"] || 'redis://localhost:6379', { db: 0, namespace: 'cache', expires_in: 1.day }
+    redis_conf = YAML.load(
+      File.read(File.join('config', 'redis.yml'))
+    )[Rails.env.to_s]
+    config.cache_store = [
+      :redis_store,
+      redis_conf['url'],
+      { db: redis_conf['db'],
+        namespace: redis_conf['namespace'],
+        expires_in: redis_conf['ttl'] }
+    ]
   end
 end

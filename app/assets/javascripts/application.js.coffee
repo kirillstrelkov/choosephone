@@ -66,7 +66,7 @@ $(document).ready ->
 
   set_price = (phone)->
     phone_name = $(phone).find('td.name a').prop('title')
-    url = '/amazon/' + encodeURIComponent(phone_name)
+    url = '/versuscom/' + encodeURIComponent(phone_name) + '/price'
     $.getJSON url, (resp)->
       url = resp.url
       lowestPrice = resp.lowestPrice
@@ -81,7 +81,7 @@ $(document).ready ->
     $phone = $(phone)
     $name = $(phone).find('td.name a')
     phone_name = $name.prop('title')
-    url = '/versuscom/' + encodeURIComponent(phone_name)
+    url = '/versuscom/' + encodeURIComponent(phone_name) + '/points'
     $.getJSON url, (resp)->
       $points = $phone.find('td.points a')
       if resp.points > 0

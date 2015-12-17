@@ -15,11 +15,11 @@ Then(/^I should see '(.+)' button$/) do |name|
 end
 
 Then(/^I should not see '(.+)' button$/) do |name|
-  assert page.has_button? name, :visible => false
+  assert page.has_button? name, visible: false
 end
 
 When(/^I fill in textarea with '(.+)'$/) do |phones|
-  fill_in('phone_names', :with => phones)
+  fill_in('phone_names', with: phones)
 end
 
 When(/^I click '(.+)' button$/) do |text|
@@ -48,6 +48,7 @@ Then(/^I should not see '(.+)' in table$/) do |text|
 end
 
 Then(/^points are correct for '(.+)'$/) do |phone_name|
+  assert_no_text('Loading', wait: 10)
   points = find(
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='points']"
@@ -57,6 +58,7 @@ Then(/^points are correct for '(.+)'$/) do |phone_name|
 end
 
 Then(/^price is correct for '(.+)'$/) do |phone_name|
+  assert_no_text('Loading', wait: 10)
   points = find(
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='price']"

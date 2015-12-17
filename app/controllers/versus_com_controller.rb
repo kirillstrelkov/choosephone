@@ -3,12 +3,31 @@ class VersusComController < ApplicationController
   include RedisHelper
 
   def points
-    name = params[:phone_name]
-    data = get(:versus, name)
+    render json: get_data(:versus, params[:phone_name])
+  end
+
+  def price
+    render json: get_data(:amazon, params[:phone_name])
+  end
+
+  private
+
+  def get_data(prefix, name)
+    data = get(prefix, name)
     unless data
-      data = VersusComHelper.get_phone_data_with_name(name)
-      set(:versus, name, data) if data[:points] > 0
+      data = send(
+        prefix == :amazon ? :get_price : :get_phone_data_with_name,
+        name
+      )
+      condition = lambda do
+        if prefix == :amazon
+          data[:points] > 0
+        else
+          data[:lowestPrice] && data[:lowestPrice].match(/^\$\d+\.\d+$/)
+        end
+      end
+      set(prefix, name, data) if condition
     end
-    render json: data
+    data
   end
 end

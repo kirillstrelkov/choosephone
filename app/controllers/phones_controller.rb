@@ -1,23 +1,17 @@
 class PhonesController < ApplicationController
   include PhonesHelper
+  before_action :set_default_data
 
   def compare
-    @description = DEFAULT_DESC
-    @title = DEFAULT_TITLE
-    @phones = []
-    @commit = params[:commit]
+    commit = params[:commit]
 
-    if @commit == 'clear'
-      @query = nil
-    else
-      @query = params['phone_names']
-    end
+    @query = commit == 'clear' ? nil : params['phone_names']
 
     if @query.nil? || @query.length == 0
-      flash[:notice] = 'You did not enter any phone models' if @commit != 'clear'
+      flash[:notice] = 'You did not enter any phone models' if commit != 'clear'
       redirect_to action: 'index'
     else
-      @phones = PhonesHelper.get_all_phones(@query.split(','))
+      @phones = get_all_phones(@query.split(','))
       @title = @phones.map { |p| p[:name].strip }.join(' vs ')
       @description = DESC_PREFIX + ' ' + @title + ' ?'
       render :index
@@ -25,6 +19,11 @@ class PhonesController < ApplicationController
   end
 
   def index
+  end
+
+  private
+
+  def set_default_data
     @query = nil
     @description = DEFAULT_DESC
     @title = DEFAULT_TITLE
