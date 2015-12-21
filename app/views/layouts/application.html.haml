@@ -3,7 +3,9 @@
   %head
     %title
       =@title
-    = stylesheet_link_tag "application"
+    = javascript_include_tag 'https://cdn.jsdelivr.net/loadcss/0.1.7/loadCSS.min.js'
+    :javascript
+      loadCSS("#{stylesheet_path('application')}");
     = javascript_include_tag "application", async: true
     = csrf_meta_tags
     %meta{:content => "c6RYH9hm0G85TJD1lHHtzPGXfRlQpdvqd8oqFgThTdg", :name => "google-site-verification"}

@@ -270,7 +270,6 @@ DEPENDENCIES
   haml-rails
   heroku_rails_deflate
   jquery-rails
-  nokogiri
   poltergeist
   rails (= 4.2.4)
   rails_12factor

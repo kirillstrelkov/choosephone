@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'turbolinks'
 
 gem 'jquery-rails'
-gem 'nokogiri'
 gem 'haml-rails'
 gem 'capybara'
 gem 'poltergeist'
