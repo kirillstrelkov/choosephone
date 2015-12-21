@@ -5,6 +5,7 @@ gem 'rails', '4.2.4'
 
 # Heroku
 gem 'rails_12factor', group: :production
+gem 'heroku_rails_deflate', group: :production
 
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '~> 5.0'

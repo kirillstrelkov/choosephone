@@ -75,4 +75,9 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.force_ssl = true
+
+  config.serve_static_assets = true
+  config.assets.compress = true
+  config.assets.compile = true
+  config.assets.digest = true
 end
