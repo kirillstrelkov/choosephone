@@ -20,7 +20,7 @@ class VersusComController < ApplicationController
         name
       )
       condition = lambda do
-        if prefix == :amazon
+        if prefix == :versus
           data[:points] > 0
         else
           data[:lowestPrice] && data[:lowestPrice].match(/^\$\d+\.\d+$/)

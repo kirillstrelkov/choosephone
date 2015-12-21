@@ -4,6 +4,7 @@ require 'capybara'
 require 'capybara/poltergeist'
 
 module VersusComHelper
+  include RedisHelper
   include Capybara::DSL
 
   VERSUS_URL = 'http://www.versus.com'
@@ -47,9 +48,10 @@ module VersusComHelper
   end
 
   def get_phone_data_with_name(name, load_points = true)
-    object = get_phone_names_json(name.strip)
-    get_phone_data(object.first['name_url'], load_points) \
-      if !object.nil? && !object.empty?
+    name_url = get_phone_names_json(name.strip).first['name_url']
+    data = get(:versus, name_url)
+    data = get_phone_data(name_url, load_points) unless data
+    data
   end
 
   private
