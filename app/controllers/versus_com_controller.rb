@@ -26,7 +26,7 @@ class VersusComController < ApplicationController
           data[:lowestPrice] && data[:lowestPrice].match(/^\$\d+\.\d+$/)
         end
       end
-      set(prefix, name, data) if condition
+      set(prefix, name, data) if condition.call
     end
     data
   end
