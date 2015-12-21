@@ -28,7 +28,6 @@ module Goodphone
     redis_conf = YAML.load(
       ERB.new(File.read(File.join('config', 'redis.yml'))).result
     )[Rails.env.to_s]
-    p redis_conf
     config.cache_store = [
       :redis_store,
       redis_conf['url'],
