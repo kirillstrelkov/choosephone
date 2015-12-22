@@ -42,4 +42,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before(:all) do
+    Rails.cache.clear
+  end
+  config.before(:each) do
+    Capybara.current_driver = :poltergeist
+  end
 end

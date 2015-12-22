@@ -20,4 +20,34 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  page:
+    title: 'Choose best phone between several ones'
+    description: "If you are tired of comparing multiple phones' features and don't know which one to choose. This site will try to help you by sorting entered phones using their points/scores. Most of modern phone vedors are supported like: sony, lg, samsung, apple, nokia and etc. Functionality is based on http://www.versus.com/ web site."
+    description_prefix: 'Which is the best phone?'
+  noscript_msg: 'Please enable Javascript otherwise this application is useless'
+  how_to_panel:
+    header: "Easy to use:"
+    step1: '1. Enter phones names'
+    step2: "2. Click 'Search and sort phones'"
+    step3: '3. Choose the best phone'
+  form:
+    clear: 'Clear'
+    search_and_sort: 'Search and sort phones'
+    placeholder: "Enter here list of interested phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
+  loading: 'Loading...'
+  phones_header: 'Sorted phones:'
+  generating_link: 'Generating link to share, please wait...'
+  share_results: 'Share results'
+  phone_model: 'Phone model'
+  possible_price: 'Possible price'
+  total_points: 'Total points'
+  possible_price_for_phone: "Possible price for '%{name}' on Amazon"
+  compare_phone_with_top_phone: "Compare '%{name}' with top phone on versus.com"
+  js_translations:
+    no_data: 'No data'
+    type_phones_into_text_field: 'Please type interested phones in text field.'
+    link_to_share: 'Link to share: '
+  flash:
+    no_phones_entered: 'You did not enter any phone models'
+  unknown_error_occurred: 'Unknown error occurred'
+  unknown: 'Unknown'

@@ -14,7 +14,6 @@
 #= require jquery_ujs
 #= require_tree .
 #= require bootstrap-sprockets
-
 ((i, s, o, g, r, a, m) ->
     i["GoogleAnalyticsObject"] = r
     i[r] = i[r] or ->
@@ -34,8 +33,11 @@ ga('send', 'pageview')
 
 
 $(document).ready ->
+  get_translation = (key)->
+    $('.translations').find("div[data-key='" + key + "']").attr('data-value')
+
   $('#search_btn').removeAttr('name')
-  no_data_msg = 'No data'
+  no_data_msg = get_translation('no_data')
 
   $share_results = $('#share_results')
   href = window.location.href
@@ -43,7 +45,7 @@ $(document).ready ->
   cur_client_width = window.innerWidth
   if cur_client_width > max_client_width
     max_chars = 50
-    content = "Link to share: "
+    content = get_translation('link_to_share')
   else
     max_chars = 22
     content = ""
@@ -59,7 +61,7 @@ $(document).ready ->
     if $('#phone_names').val() == ''
       $('#notice').show()
       event.preventDefault()
-      $('#notice').text('Please type interested phones in text field.')
+      $('#notice').text(get_translation('type_phones_into_text_field'))
       delay = (ms, func) -> setTimeout func, ms
       delay 1000, ->
         $('#notice').hide('slow')

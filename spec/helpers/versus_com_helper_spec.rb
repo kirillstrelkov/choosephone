@@ -41,9 +41,9 @@ RSpec.describe VersusComHelper, type: :helper do
 
   describe '#get_price' do
     it 'should return proper json object for sony z3' do
-      json = get_price('sony xperia z3')
-      expect(json[:lowestPrice]).to match(/\$\d+\.\d+/)
-      expect(json).to include(:url)
+      data = get_price('sony xperia z3')
+      expect(data[:lowestPrice]).to match(/\$\d+\.\d+/)
+      expect(data).to include(:url)
     end
   end
 end

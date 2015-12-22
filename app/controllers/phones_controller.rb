@@ -8,12 +8,12 @@ class PhonesController < ApplicationController
     @query = commit == 'clear' ? nil : params['phone_names']
 
     if @query.nil? || @query.length == 0
-      flash[:notice] = 'You did not enter any phone models' if commit != 'clear'
+      flash[:notice] = t('flash.no_phones_entered') if commit != 'clear'
       redirect_to action: 'index'
     else
       @phones = get_all_phones(@query.split(','))
       @title = @phones.map { |p| p[:name].strip }.join(' vs ')
-      @description = DESC_PREFIX + ' ' + @title + ' ?'
+      @description = t('page.description_prefix') + ' ' + @title + ' ?'
       render :index
     end
   end
@@ -25,8 +25,8 @@ class PhonesController < ApplicationController
 
   def set_default_data
     @query = nil
-    @description = DEFAULT_DESC
-    @title = DEFAULT_TITLE
+    @description = t('page.description')
+    @title = t('page.title')
     @phones = []
   end
 end

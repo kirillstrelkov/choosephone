@@ -17,7 +17,7 @@ module VersusComHelper
       json_obj = JSON.parse(open(uri).read, symbolize_names: true)
       json_obj[:pricetags][0]
     rescue
-      { error: 'Unknown error occurred' }
+      { error: t(:unknown_error_occurred) }
     end
   end
 
@@ -29,7 +29,7 @@ module VersusComHelper
   def get_phone_data(name_url, load_points=true)
     uri = URI.encode('http://versus.com/en/' + name_url)
     versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE + name_url
-    phone_data = { name: 'Unknown',
+    phone_data = { name: t(:unknown),
                    points: -1,
                    url: uri,
                    vs_url: versus_top_phone_url,

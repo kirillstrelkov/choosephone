@@ -65,3 +65,11 @@ Then(/^price is correct for '(.+)'$/) do |phone_name|
   ).text
   expect(points).to match(/\$\d+\.\d+/)
 end
+
+Then(/^I should see '(.+)' (\d+) times$/) do |text, times|
+  assert_text(text, count: times)
+end
+
+Then(/^I wait for '(.+)' is not visible$/) do |text|
+  assert_no_text(text, wait: 2.minutes)
+end

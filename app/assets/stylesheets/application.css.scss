@@ -15,7 +15,7 @@
 @import "bootstrap";
 
 .popover {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 form, div.panel {
@@ -23,5 +23,9 @@ form, div.panel {
 }
 
 .panel-title {
-    font-size: 18px;
+  font-size: 18px;
+}
+
+.translations {
+  display: none;
 }

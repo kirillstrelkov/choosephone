@@ -1,7 +1,10 @@
+%div{class: 'translations'}
+  -t('js_translations').each do |k, v|
+    %div{'data-key': k, 'data-value': v}
 %div{class: 'container'}
   %div{class: 'row'}
     %noscript{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
-      Please enable Javascript otherwise this application is useless
+      =t(:noscript_msg)
   -if !flash[:notice].nil?
     %div{class: 'row'}
       %div{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
@@ -17,7 +20,7 @@
       %div{class: 'panel-heading'}
         %h4{class: 'panel-title'}
           %strong
-            Easy to use:
+            =t('how_to_panel.header')
       %div{class: 'panel-body'}
         %div{class: 'row'}
           %div{class: 'col-xs-12 col-sm-4 col-md-4'}
@@ -25,38 +28,38 @@
               =image_tag "step1.png"
               %div{class: 'caption'}
                 %h4{class: 'text-center'}
-                  1. Enter phones names
+                  =t('how_to_panel.step1')
           %div{class: 'col-xs-12 col-sm-4 col-md-4'}
             %div{class: 'thumbnail'}
               =image_tag "step2.png"
               %div{class: 'caption'}
                 %h4{class: 'text-center'}
-                  2. Click 'Search and sort phones'
+                  =t('how_to_panel.step2')
           %div{class: 'col-xs-12 col-sm-4 col-md-4'}
             %div{class: 'thumbnail'}
               =image_tag "step3.png"
               %div{class: 'caption'}
                 %h4{class: 'text-center'}
-                  3. Choose the best phone
+                  =t('how_to_panel.step3')
 
   %div{class: 'row'}
     =form_tag '/phones/compare', method: :get do
       %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
         %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
-          =text_area_tag 'phone_names', @query, class: 'form-control', autofocus: true , placeholder: "Enter here list of interested phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
+          =text_area_tag 'phone_names', @query, class: 'form-control', autofocus: true , placeholder: t('form.placeholder')
         %div{class: 'form-group'}
           %div{class: 'col-xs-12 col-sm-12 col-md-12'}
-            =button_tag 'Clear', id: 'clear_btn', class: 'btn btn-default', type: 'submit', name: 'commit', value: 'clear'
-            =button_tag 'Search and sort phones', id: 'search_btn', class: 'btn btn-primary', type: 'submit', name: 'commit', value: 'search'
+            =button_tag t('form.clear'), id: 'clear_btn', class: 'btn btn-default', type: 'submit', name: 'commit', value: 'clear'
+            =button_tag t('form.search_and_sort'), id: 'search_btn', class: 'btn btn-primary', type: 'submit', name: 'commit', value: 'search'
 -if !@phones.empty?
   %div{class: 'container'}
     %div{class: 'row'}
       %div{class: 'col-xs-6 col-sm-6 col-md-6'}
         %h4
-          Sorted phones:
+          =t(:phones_header)
       %div{class: 'col-xs-2 col-sm-2 col-md-2 col-xs-offset-4 col-sm-offset-4 col-md-offset-4'}
-        %button{id: 'share_results', class: 'btn btn-info pull-right', 'data-loading-text'=>"Generating link to share, please wait..."}
-          Share results
+        %button{id: 'share_results', class: 'btn btn-info pull-right', 'data-loading-text': t(:generating_link)}
+          =t(:share_results)
     %div{class: 'row'}
       %div{class: 'col-xs-12 col-sm-12 col-md-12'}
         %table{class: 'table table-condensed table-responsive table-hover'}
@@ -65,11 +68,11 @@
               %th
                 \#
               %th{class: 'col-xs-8 col-sm-8 col-md-8'}
-                Phone model
+                =t(:phone_model)
               %th{class: 'col-xs-2 col-sm-2 col-md-2'}
-                Possible price
+                =t(:possible_price)
               %th{class: 'col-xs-2 col-sm-2 col-md-2'}
-                Total points
+                =t(:total_points)
           %tbody
             -@phones.each  do |phone|
               -index = @phones.index(phone) + 1
@@ -79,6 +82,6 @@
                 %td{class: 'name'}
                   =link_to phone[:name], phone[:url], title: phone[:name], target: '_blank'
                 %td{class: 'price'}
-                  =link_to show_price(phone[:price]), title: "Possible price for '#{phone[:name]}' on Amazon", href: '#', target: '_blank'
+                  =link_to show_price(phone[:price]), '#', title: t(:possible_price_for_phone, name: phone[:name]), target: '_blank'
                 %td{class: 'points'}
-                  =link_to show_price(phone[:points]), title: "Compare '#{phone[:name]}' with top phone on versus.com", href: phone[:vs_url], target: '_blank'
+                  =link_to show_price(phone[:points]), phone[:vs_url], title: t(:compare_phone_with_top_phone, name: phone[:name]), target: '_blank'
