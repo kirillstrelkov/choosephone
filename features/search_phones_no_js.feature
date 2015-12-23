@@ -38,3 +38,15 @@ Feature: Search for phones without javascript enabled
     Then I should see 'Sony Xperia Z3' on page
     And I should see 'Sony Xperia Z2' on page
     And I should see 'Loading' 4 times
+
+    Scenario: User changes language after search
+      Given I am on main page
+      When I fill in textarea with 'sony z3, sony z2'
+      And I click 'Search and sort phones' button
+      And I click 'По-русски' link
+      Then I should be redirected to '/ru/phones/compare?utf8=%E2%9C%93&phone_names=sony+z3%2C+sony+z2&commit=search'
+
+      Scenario: User changes language after search
+        Given I am on main page
+        And I click 'По-русски' link
+        Then I should be redirected to '/ru/index'

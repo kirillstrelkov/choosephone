@@ -1,7 +1,17 @@
-%div{class: 'translations'}
-  - if t('js_translations').is_a?(Hash)
-    -t('js_translations').each do |k, v|
-      %div{'data-key': k, 'data-value': v}
+%nav{class: 'container'}
+  %div{class: 'navbar navbar-default'}
+    %div{class: 'navbar-header'}
+      %span{class: 'glyphicon glyphicon-phone navbar-brand', 'aria-hidden': true}
+      %span{class: 'glyphicon glyphicon-sort-by-attributes-alt navbar-brand', 'aria-hidden': true}
+    %ul{class: 'nav nav-pills pull-right'}
+      -I18n.available_locales.each do |locale|
+        -if locale == I18n.locale
+          %li{role: 'presentation', class: "active"}
+            =link_to t("page.in_#{locale}"), language_link(locale)
+        -else
+          %li{role: 'presentation'}
+            =link_to t("page.in_#{locale}"), language_link(locale)
+
 %div{class: 'container'}
   %div{class: 'row'}
     %noscript{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
@@ -88,3 +98,8 @@
                   =link_to show_price(phone[:price]), '#', title: t(:possible_price_for_phone, name: phone[:name]), target: '_blank'
                 %td{class: 'points'}
                   =link_to show_price(phone[:points]), phone[:vs_url], title: t(:compare_phone_with_top_phone, name: phone[:name]), target: '_blank'
+
+%div{class: 'translations'}
+  - if t('js_translations').is_a?(Hash)
+    -t('js_translations').each do |k, v|
+      %div{'data-key': k, 'data-value': v}

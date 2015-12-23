@@ -81,3 +81,7 @@ end
 Given(/^I am on '(.+)' page$/) do |path|
   visit("http://localhost:3000#{path}")
 end
+
+When(/^I click '(.+)' link$/) do |text|
+  click_link(text)
+end

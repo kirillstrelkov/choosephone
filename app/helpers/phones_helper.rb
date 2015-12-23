@@ -14,4 +14,13 @@ module PhonesHelper
   def show_points(points)
     points.is_a?(String) && points.match(/\d+/) ? points : t(:loading)
   end
+
+  def language_link(locale)
+    # debugger
+    if request.query_string.length > 0
+      phones_compare_path(locale: locale) + '?' + request.query_string
+    else
+      index_path(locale: locale)
+    end
+  end
 end
