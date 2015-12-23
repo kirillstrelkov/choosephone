@@ -9,6 +9,11 @@ Feature: Search for phones
     And I should see 'Search and sort phones' button
     And I should not see 'Please enable Javascript otherwise this application is useless' on page
 
+  Scenario: User clicks on 'Search and sort phones' with no phones
+    Given I am on main page
+    And I click 'Search and sort phones' button
+    Then I should see 'Please type interested phones in text field.' on page
+
   Scenario: Query is removed when user clicks on 'Clear' button
     Given I am on main page
     When I fill in textarea with 'IPhone 5, Sony z1'

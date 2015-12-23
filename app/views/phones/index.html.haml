@@ -1,16 +1,19 @@
 %div{class: 'translations'}
-  -t('js_translations').each do |k, v|
-    %div{'data-key': k, 'data-value': v}
+  - if t('js_translations').is_a?(Hash)
+    -t('js_translations').each do |k, v|
+      %div{'data-key': k, 'data-value': v}
 %div{class: 'container'}
   %div{class: 'row'}
     %noscript{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-danger'}
       =t(:noscript_msg)
-  -if !flash[:notice].nil?
+  %div{class: 'row'}
+    %div{id: 'notice', class: 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
+  -unless flash[:notice].nil?
     %div{class: 'row'}
       %div{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-info alert-dismissible'}
         %p
           =flash[:notice]
-  -if !flash[:error].nil?
+  -unless flash[:error].nil?
     %div{class: 'row'}
       %div{class: 'col-xs-12 col-sm-12 col-md-12 alert alert-warning alert-dismissible'}
         %p
@@ -43,7 +46,7 @@
                   =t('how_to_panel.step3')
 
   %div{class: 'row'}
-    =form_tag '/phones/compare', method: :get do
+    =form_tag phones_compare_path, method: :get do
       %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
         %div{class: 'form-group col-xs-12 col-sm-12 col-md-12'}
           =text_area_tag 'phone_names', @query, class: 'form-control', autofocus: true , placeholder: t('form.placeholder')

@@ -3,7 +3,12 @@ class VersusComController < ApplicationController
   include RedisHelper
 
   def points
-    render json: get_data(:versus, params[:phone_name])
+    data = get_data(:versus, params[:phone_name])
+    locale = I18n.locale
+    data.each do |k, v|
+      data[k] = v.gsub('/en/', "/#{locale}/") if k.to_s.include?('url')
+    end
+    render json: data
   end
 
   def price

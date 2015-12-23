@@ -9,7 +9,7 @@ class PhonesController < ApplicationController
 
     if @query.nil? || @query.length == 0
       flash[:notice] = t('flash.no_phones_entered') if commit != 'clear'
-      redirect_to action: 'index'
+      redirect_to phones_index_path
     else
       @phones = get_all_phones(@query.split(','))
       @title = @phones.map { |p| p[:name].strip }.join(' vs ')

@@ -82,8 +82,9 @@ $(document).ready ->
   set_points = (phone)->
     $phone = $(phone)
     $name = $(phone).find('td.name a')
+    lang = $('html').prop('lang')
     phone_name = $name.prop('title')
-    url = '/versuscom/' + encodeURIComponent(phone_name) + '/points'
+    url = '/' + lang + '/versuscom/' + encodeURIComponent(phone_name) + '/points'
     $.getJSON url, (resp)->
       $points = $phone.find('td.points a')
       if resp.points > 0

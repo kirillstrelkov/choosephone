@@ -73,3 +73,11 @@ end
 Then(/^I wait for '(.+)' is not visible$/) do |text|
   assert_no_text(text, wait: 2.minutes)
 end
+
+Then(/^I should be redirected to '(.+)'$/) do |path|
+  assert_current_path(path)
+end
+
+Given(/^I am on '(.+)' page$/) do |path|
+  visit("http://localhost:3000#{path}")
+end
