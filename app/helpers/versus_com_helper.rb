@@ -7,9 +7,9 @@ module VersusComHelper
   include RedisHelper
   include Capybara::DSL
 
-  VERSUS_URL = 'http://www.versus.com'
-  VERSUS_URL_WITH_TO_PHONE = 'http://versus.com/en/sony-xperia-z5-premium-dual-vs-'
-  AMAZON_SEARCH_URL = 'http://versus.com/pricetags/get'
+  VERSUS_URL = 'https://www.versus.com'
+  VERSUS_URL_WITH_TO_PHONE = 'https://versus.com/en/sony-xperia-z5-premium-dual-vs-'
+  AMAZON_SEARCH_URL = 'https://versus.com/pricetags/get'
 
   def get_price(phone_name)
     uri = URI.encode("#{AMAZON_SEARCH_URL}?keywords=#{phone_name}")
@@ -27,7 +27,7 @@ module VersusComHelper
   end
 
   def get_phone_data(name_url, load_points=true)
-    uri = URI.encode('http://versus.com/en/' + name_url)
+    uri = URI.encode('https://versus.com/en/' + name_url)
     versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE + name_url
     phone_data = { name: t(:unknown),
                    points: -1,
