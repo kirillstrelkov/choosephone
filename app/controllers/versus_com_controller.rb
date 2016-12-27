@@ -28,7 +28,7 @@ class VersusComController < ApplicationController
         if prefix == :versus
           data[:points] > 0
         else
-          data[:lowestPrice] && data[:lowestPrice].match(/^\$\d+\.\d+$/)
+          data[:lowestPrice] && data[:lowestPrice].match(/.\d+[,\.]\d+$/)
         end
       end
       set(prefix, name, data) if condition.call

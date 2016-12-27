@@ -36,7 +36,7 @@ module VersusComHelper
                    price: nil }
 
     visit(uri)
-    names = all(:css, '.title')
+    names = all(:css, 'div[class*=rivalName]')
     unless names.empty?
       name = names[0].text.strip
       phone_data[:name] = name
@@ -57,13 +57,13 @@ module VersusComHelper
   private
 
   def get_points
-    times_for_found_points = 3
+    times_for_found_points = 2
     same_times = 0
     points = 0
     cur_points = []
     10.times do
       begin
-        cur_points = all(:css, '.points-text', minimum: 1)
+        cur_points = all(:css, 'div[class*=points] span[class*=ScoreChart]', minimum: 1)
       rescue Capybara::CapybaraError => e
         cur_points = []
       end
@@ -78,7 +78,7 @@ module VersusComHelper
         points = cur_points
       end
       break if points > 0 && same_times == times_for_found_points
-      sleep(0.5)
+      sleep(0.1)
     end
     points > 0 ? points : -1
   end
