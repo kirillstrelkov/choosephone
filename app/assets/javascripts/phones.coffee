@@ -10,7 +10,7 @@ set_price = (phone)->
       $price.text(lowestPrice)
       $price.prop('href', url)
     else
-      $price.parent().text(no_data_msg)
+      $price.parent().text(get_translation('no_data'))
 
 set_points = (phone)->
   $phone = $(phone)
@@ -24,13 +24,13 @@ set_points = (phone)->
       $points.text(resp.points)
       $points.prop('href', resp.vs_url)
     else
-      $points.parent().text(no_data_msg)
+      $points.parent().text(get_translation('no_data'))
     points = $('td.points').map ()->
       text = $(this).text().trim()
       value = parseInt(text)
       if isNaN(value) then text else value
     good_points = points.filter (i, e)->
-      e > 0 or e == no_data_msg
+      e > 0 or e == get_translation('no_data')
     all_elements_are_loaded = points.length == good_points.length
     if all_elements_are_loaded
       sort(points)
@@ -67,7 +67,6 @@ init = ->
   ga('send', 'pageview')
 
   $('#search_btn').removeAttr('name')
-  no_data_msg = get_translation('no_data')
 
   $share_results = $('#share_results')
   href = window.location.href
@@ -82,6 +81,10 @@ init = ->
   text = decodeURI(href).substring(0, max_chars - 3) + '...'
   content += "<a href='#{href}' target='_blank'>#{text}</a>"
   $share_results.popover({container: '.container', html: true, placement: 'left', 'content': content})
+
+  $('.phone').each (index)->
+    set_price(this)
+    set_points(this)
 
 # EVENTS
 $(document).on "turbolinks:load", ->
@@ -102,7 +105,3 @@ $(document).on 'click', '#search_btn', (event)->
     delay = (ms, func) -> setTimeout func, ms
     delay 1000, ->
       $('#notice').hide('slow')
-
-  $('.phone').each (index)->
-    set_price(this)
-    set_points(this)
