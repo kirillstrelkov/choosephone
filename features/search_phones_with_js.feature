@@ -33,7 +33,7 @@ Feature: Search for phones
     And I click 'Search and sort phones' button
     Then '#phone_names' field value should be 'LG L9'
 
-  Scenario: User searches for phones points and prices are visible
+  Scenario: User searches for phones, points and prices are visible
     Given I am on main page
     When I fill in textarea with 'sony z3, sony z2'
     And I click 'Search and sort phones' button
@@ -43,3 +43,14 @@ Feature: Search for phones
     And I should see 'Sony Xperia Z2' on page
     And points are correct for 'Sony Xperia Z2'
     And price is correct for 'Sony Xperia Z2'
+
+  Scenario: User searches for tablets, points and prices are visible
+    Given I am on main page
+    When I fill in textarea with 'sony z4 tablet, ipad pro'
+    And I click 'Search and sort phones' button
+    Then I should see 'Sony Xperia Z4 Tablet' on page
+    And points are correct for 'Sony Xperia Z4 Tablet'
+    And price is correct for 'Sony Xperia Z4 Tablet'
+    And I should see 'Apple iPad Pro' on page
+    And points are correct for 'Apple iPad Pro'
+    And price is correct for 'Apple iPad Pro'

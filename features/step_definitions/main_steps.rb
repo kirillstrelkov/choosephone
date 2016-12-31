@@ -48,17 +48,18 @@ Then(/^I should not see '(.+)' in table$/) do |text|
 end
 
 Then(/^points are correct for '(.+)'$/) do |phone_name|
-  assert_no_text('Loading', wait: 10)
+  assert_no_text('Loading', wait: 20)
   points = find(
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='points']"
   ).text
   expect(points).to match(/\d+/)
-  expect(points.to_i).to be > 30_000
+  is_tablet = /tablet|ipad/.match(phone_name.downcase)
+  expect(points.to_i).to be > (is_tablet ? 500 : 20_000)
 end
 
 Then(/^price is correct for '(.+)'$/) do |phone_name|
-  assert_no_text('Loading', wait: 10)
+  assert_no_text('Loading', wait: 20)
   points = find(
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='price']"
