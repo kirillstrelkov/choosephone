@@ -5,8 +5,10 @@ class VersusComController < ApplicationController
   def points
     data = get_data(:versus, params[:phone_name])
     locale = I18n.locale
-    data.each do |k, v|
-      data[k] = v.gsub('/en/', "/#{locale}/") if k.to_s.include?('url')
+    if data[:points] != -1
+      data.each do |k, v|
+        data[k] = v.gsub('/en/', "/#{locale}/") if k.to_s.include?('url')
+      end
     end
     render json: data
   end

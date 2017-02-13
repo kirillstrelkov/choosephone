@@ -54,3 +54,10 @@ Feature: Search for phones
     And I should see 'Apple iPad Pro' on page
     And points are correct for 'Apple iPad Pro'
     And price is correct for 'Apple iPad Pro'
+
+  Scenario: User searches for too old phone
+    Given I am on main page
+    When I fill in textarea with 'lg p500'
+    And I click 'Search and sort phones' button
+    Then I should see 'lg p500' on page
+    And I should see 'No data' on page
