@@ -1,7 +1,6 @@
 language: ruby
 rvm:
-  - 2.2
-  - jruby
+  - 2.2.3
 task :travis do
   ["rspec spec", "rake cucumber"].each do |cmd|
     puts "Starting to run #{cmd}..."
