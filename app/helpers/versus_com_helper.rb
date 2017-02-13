@@ -1,5 +1,6 @@
 require 'json'
 require 'open-uri'
+require 'levenshtein'
 require 'capybara'
 require 'capybara/poltergeist'
 
@@ -23,7 +24,8 @@ module VersusComHelper
 
   def get_phone_names_json(name)
     uri = URI.encode("#{VERSUS_URL}/object?q=#{name}")
-    JSON.parse(open(uri).read)
+    json = JSON.parse(open(uri).read)
+    json.sort_by { |a| Levenshtein.distance(a['name'], name) }
   end
 
   def get_phone_data(name_url, load_points=true)

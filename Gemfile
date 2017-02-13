@@ -21,6 +21,8 @@ gem 'capybara'
 gem 'poltergeist'
 gem 'redis-rails'
 
+gem 'levenshtein-ffi', require: 'levenshtein'
+
 group :development do
   gem 'guard-rspec', require: false
 end

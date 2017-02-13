@@ -129,6 +129,8 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -298,6 +300,7 @@ DEPENDENCIES
   heroku_rails_deflate
   jquery-rails
   jquery-turbolinks
+  levenshtein-ffi
   poltergeist
   rails (= 4.2.4)
   rails_12factor
