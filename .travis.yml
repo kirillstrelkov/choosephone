@@ -1,6 +1,8 @@
 language: ruby
 rvm:
   - 2.2.3
+services:
+  - redis-server
 script:
-- bundle exec rspec
-- bundle exec cucumber
+  - bundle exec rspec
+  - bundle exec cucumber
