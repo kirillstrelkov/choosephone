@@ -55,8 +55,9 @@ module VersusComHelper
       vs_url: nil,
       price: nil
     }
-    name_url = get_phone_names_json(name.strip).first['name_url']
-    unless name_url.nil?
+    json_name = get_phone_names_json(name.strip)
+    unless json_name.empty?
+      name_url = json_name.first['name_url']
       data = get(:versus, name_url)
       data = get_phone_data(name_url, load_points) unless data
     end
