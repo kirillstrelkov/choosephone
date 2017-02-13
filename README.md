@@ -1,6 +1,6 @@
-== Introduction
-
 [![Build Status](https://travis-ci.org/kirillstrelkov/choosephone.svg?branch=master)](https://travis-ci.org/kirillstrelkov/choosephone)
+
+# Introduction
 
 Rails web site allows to sort entered phones by their 'points'.
 
