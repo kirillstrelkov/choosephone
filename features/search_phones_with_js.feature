@@ -61,3 +61,10 @@ Feature: Search for phones
     And I click 'Search and sort phones' button
     Then I should see 'lg p500' on page
     And I should see 'No data' on page
+
+  Scenario: Phones should be ordered by points
+    Given I am on main page
+    When I fill in textarea with 'samsung galaxy core prime, z1 compact'
+    And I click 'Search and sort phones' button
+    Then I wait for 'Loading' is not visible
+    Then I should see 'Sony Xperia Z1 Compact' before 'Samsung Galaxy Core Prime'

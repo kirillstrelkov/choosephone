@@ -28,6 +28,8 @@ end
 
 Then(/^I should see '(.+)' before '(.+)'$/) do |phone1, phone2|
   text = page.text
+  assert_text(phone1)
+  assert_text(phone2)
   expect(text.index(phone1)).to be < text.index(phone2)
 end
 

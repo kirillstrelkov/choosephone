@@ -36,7 +36,7 @@ set_points = (phone)->
       sort(points)
 
 sort = (points)->
-  points.sort()
+  points.sort( (a,b)-> a - b ) # reverse sort
   $(points).each (i, point)->
     $('td.points a').each (j, $point)->
       if point == parseInt($($point).text())
