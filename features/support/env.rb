@@ -57,3 +57,4 @@ ActionController::Base.allow_rescue = false
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.default_driver = :poltergeist
+Capybara.app_host = 'http://localhost:3000'

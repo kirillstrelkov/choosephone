@@ -1,5 +1,5 @@
 Given(/^I am on main page$/) do
-  visit('http://localhost:3000/')
+  visit('/')
 end
 
 Then(/^I should see main form$/) do

@@ -1,4 +1,4 @@
-Feature: Search for phones without javascript enabled
+Feature: Locale tests
 
   Scenario: User goes to root page without language
     Given I am on '/' page
