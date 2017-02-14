@@ -82,7 +82,7 @@ Then(/^I should be redirected to '(.+)'$/) do |path|
 end
 
 Given(/^I am on '(.+)' page$/) do |path|
-  visit("http://localhost:3000#{path}")
+  visit(path)
 end
 
 When(/^I click '(.+)' link$/) do |text|
