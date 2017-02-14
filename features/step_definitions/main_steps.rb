@@ -66,7 +66,7 @@ Then(/^price is correct for '(.+)'$/) do |phone_name|
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='price']"
   ).text
-  expect(points).to match(/\$\d+\.\d+/)
+  expect(points).to match(/[\$€]\d+[,\.]\d+/)
 end
 
 Then(/^I should see '(.+)' (\d+) times$/) do |text, times|
