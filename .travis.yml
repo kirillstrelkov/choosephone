@@ -4,8 +4,9 @@ rvm:
 services:
   - redis-server
 before_script:
-  - bundle exec rails s
+  - bundle exec rails s &
 script:
   - bundle exec rspec
+  - bundle exec cucumber
 after_script:
   - pkill -c -f rails
