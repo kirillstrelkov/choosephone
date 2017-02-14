@@ -18,7 +18,7 @@ Feature: Search for phones
     Given I am on main page
     When I fill in textarea with 'sony z3, sony z2'
     And I click 'Search and sort phones' button
-    Then I wait for 'Loading' is not visible`
+    Then I wait for 'Loading' is not visible
     And I should see 'Sony Xperia Z3' on page
     And points are correct for 'Sony Xperia Z3'
     And price is correct for 'Sony Xperia Z3'
@@ -30,7 +30,7 @@ Feature: Search for phones
     Given I am on main page
     When I fill in textarea with 'sony z4 tablet, ipad pro'
     And I click 'Search and sort phones' button
-    Then I wait for 'Loading' is not visible`
+    Then I wait for 'Loading' is not visible
     And I should see 'Sony Xperia Z4 Tablet' on page
     And points are correct for 'Sony Xperia Z4 Tablet'
     And price is correct for 'Sony Xperia Z4 Tablet'
