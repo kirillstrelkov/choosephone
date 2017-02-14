@@ -13,5 +13,5 @@ Feature: Search for phones without javascript enabled
     Then I should be redirected to '/en/phones/index'
 
   Scenario: User uses link without language
-    Given I am on '/phones/compare?utf8=%E2%9C%93&phone_names=oneplus+x%2C+z3+compact%2C+z1+compact' page
-    Then I should be redirected to '/en/phones/compare?utf8=%E2%9C%93&phone_names=oneplus+x%2C+z3+compact%2C+z1+compact'
+    Given I am on '/phones/compare?utf8=%E2%9C%93&phone_names=z1+compact' page
+    Then I should be redirected to '/en/phones/compare?utf8=%E2%9C%93&phone_names=z1+compact'

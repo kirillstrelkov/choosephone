@@ -3,6 +3,8 @@ ruby '2.2.3'
 
 gem 'rails', '4.2.4'
 
+gem 'puma'
+
 # Heroku
 gem 'rails_12factor', group: :production
 gem 'heroku_rails_deflate', group: :production
