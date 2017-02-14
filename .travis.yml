@@ -3,5 +3,9 @@ rvm:
   - 2.2.3
 services:
   - redis-server
+before_script:
+  - bundle exec rails s
 script:
   - bundle exec rspec
+after_script:
+  - pkill -c -f rails
