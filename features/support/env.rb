@@ -110,3 +110,4 @@ mobile_drivers_and_names.each do |device_symbol, device_name|
 end
 
 Capybara.app_host = 'http://localhost:3000'
+Capybara.javascript_driver = Capybara.default_driver
