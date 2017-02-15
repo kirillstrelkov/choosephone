@@ -57,6 +57,11 @@ ActionController::Base.allow_rescue = false
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(
+    app, cookies: true, window_size: [1366, 768]
+  )
+end
+
 Capybara.default_driver = :poltergeist
-Capybara.current_driver = :poltergeist
 Capybara.app_host = 'http://localhost:3000'
