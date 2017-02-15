@@ -36,4 +36,8 @@ end
 
 group :test do
   gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'cucumber'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
