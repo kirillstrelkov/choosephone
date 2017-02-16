@@ -1,4 +1,3 @@
-@javascript
 Feature: Search for phones
 
   Scenario: Phones should be ordered by points

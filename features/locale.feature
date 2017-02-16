@@ -1,4 +1,3 @@
-@javascript
 Feature: Locale tests
 
   Scenario: User goes to root page without language
