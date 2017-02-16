@@ -9,10 +9,9 @@ Feature: Search for phones
 
   Scenario: User searches for one phone and query is saved
     Given I am on main page
-    When I fill in textarea with 'LG L9'
+    When I fill in textarea with 'lg optimus l9'
     And I click 'Search and sort phones' button
-    And I should see 'Loading' 2 times
-    Then '#phone_names' field value should be 'LG L9'
+    Then '#phone_names' field value should be 'lg optimus l9'
 
   Scenario: User searches for phones, points and prices are visible
     Given I am on main page

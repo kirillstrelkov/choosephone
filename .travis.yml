@@ -9,4 +9,4 @@ script:
   - bundle exec rspec
   - bundle exec cucumber
 after_script:
-  - pkill -c -f rails
+  - pkill -c -f puma
