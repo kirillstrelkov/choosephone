@@ -30,10 +30,8 @@ RSpec.describe PhonesController, type: :controller do
         body = response.body
         expect(body).to have_css('tbody tr', count: 2)
         expect(body).to have_content('Loading...', count: 4)
-        expect(body).to have_content('Sony Xperia Z3 Compact')
-        expect(body).to have_content('Sony Xperia Z1 Compact')
-        expect(body.index('Sony Xperia Z1 Compact'))
-          .to be < body.index('Sony Xperia Z3 Compact')
+        expect(body).to have_content('z1 compact')
+        expect(body).to have_content('z3 compact')
       end
     end
   end

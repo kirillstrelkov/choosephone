@@ -31,12 +31,11 @@ RSpec.describe VersusComHelper, type: :helper do
       expect(objects.first['name_url']).to eq('samsung-galaxy-s7-edge')
     end
 
-    it 'should return suggestions for Asus ZenFone 3' do
-      objects = get_phone_names_json('Asus ZenFone 3')
-      puts objects
+    it 'should return suggestions for Asus ZenFone 3 (' do
+      objects = get_phone_names_json('Asus ZenFone 3 (')
       expect(objects.length).to be > 0
-      expect(objects.first['name']).to eq('Asus ZenFone 3')
-      expect(objects.first['name_url']).to eq('Asus ZenFone 3')
+      expect(objects.first['name']).to eq('Asus Zenfone 3 (ZE552KL)')
+      expect(objects.first['name_url']).to eq('asus-zenfone-3-ze552kl')
     end
   end
 

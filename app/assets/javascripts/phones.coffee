@@ -1,57 +1,97 @@
 # FUNCTIONS
-set_price = (phone)->
-  phone_name = $(phone).find('td.name a').prop('title')
-  url = '/versuscom/' + encodeURIComponent(phone_name) + '/price'
-  $.getJSON url, (resp)->
-    url = resp.url
-    lowestPrice = resp.lowestPrice
-    $price = $(phone).find('td.price a')
-    if lowestPrice
-      $price.text(lowestPrice)
-      $price.prop('href', url)
-    else
-      $price.parent().text(get_translation('no_data'))
+update_title = ()->
+  $(document).prop(
+    'title',
+    $('.phone').map(()-> $(this).data('name')).toArray().join(' vs ')
+  )
 
-set_points = (phone)->
+update_row_data = (row, data)->
+  $row = $(row)
+  $row.data(data)
+
+format_row_data = (row)->
+  $row = $(row)
+  $name = $row.find('.name')
+  $points = $row.find('.points')
+  points_title = get_translation('compare_phone_with_top_phone').replace('%{name}', $row.data('name'))
+
+  $name.empty()
+  a = "<a href='#{$row.data('url')}' target='_blank' title='#{$row.data('name')}'>#{$row.data('name')}</a>"
+  $name.append(a)
+
+  points = $row.data('points')
+  $points.empty()
+  if parseInt(points) > 0
+    points = points
+    a = "<a href='#{$row.data('vs_url')}' target='_blank' title='#{points_title}'>#{points}</a>"
+  else
+    a = get_translation('no_data')
+  $points.append(a)
+
+format_row_price = (row)->
+  $row = $(row)
+  $price = $row.find('.price')
+  price_title = get_translation('possible_price_for_phone').replace('%{name}', $row.data('name'))
+
+  $price.empty()
+  price = $row.data('price')
+  if price == null
+    a = get_translation('no_data')
+  else
+    a = "<a href='#{$row.data('amazon_url')}' target='_blank' title='#{price_title}'>#{price}</a>"
+  $price.append(a)
+
+set_price = (row)->
+  $row = $(row)
+  phone_name = $row.data('name')
+  url = '/versuscom/' + encodeURIComponent(phone_name) + '/price'
+  $.ajax url,
+    dataType: 'json'
+    success:  (resp)->
+      url = resp.url
+      lowestPrice = resp.lowestPrice
+      $price = $(row).find('td.price')
+      if lowestPrice
+        update_row_data($row, {'price': lowestPrice, 'amazon_url': url})
+      else
+        $price.text(get_translation('no_data'))
+      format_row_price($row)
+    error: (jqxhr, text_status, error)->
+      if text_status == 503
+        set_price(row)
+
+set_points_and_price = (phone)->
   $phone = $(phone)
-  $name = $(phone).find('td.name a')
+  phone_name = $(phone).data('query')
   lang = $('html').prop('lang')
-  phone_name = $name.prop('title')
   url = '/' + lang + '/versuscom/' + encodeURIComponent(phone_name) + '/points'
   $.ajax url,
     dataType: 'json'
     success:  (resp)->
-      $points = $phone.find('td.points a')
-      if resp.points > 0
-        $points.text(resp.points)
-        $points.prop('href', resp.vs_url)
-      else
-        $points.parent().text(get_translation('no_data'))
-      points = $('td.points').map ()->
-        text = $(this).text().trim()
-        value = parseInt(text)
-        if isNaN(value) then text else value
-      good_points = points.filter (i, e)->
-        e > 0 or e == get_translation('no_data')
-      all_elements_are_loaded = points.length == good_points.length
-      if all_elements_are_loaded
-        sort(points)
+      update_row_data($phone, resp)
+      format_row_data($phone)
+      sort_phones()
+      update_title()
+      set_price($phone)
     error: (jqxhr, text_status, error)->
       if text_status == 503
-        set_points(phone)
+        set_points_and_price(phone)
 
-sort = (points)->
+sort_phones = ()->
+  $phones = $('.phone')
+  points = $phones.map ()->
+    $(this).data('points')
   points.sort( (a,b)-> a - b ) # reverse sort
   $(points).each (i, point)->
-    $('td.points a').each (j, $point)->
-      if point == parseInt($($point).text())
-        $parent = $($point).parent().parent()
-        $('tbody').prepend($parent)
+    $phones.each (j, $phone)->
+      $phone = $($phone)
+      if point == parseInt($phone.data('points'))
+        $('tbody').prepend($phone)
   $('tr.phone').each (i, phone)->
     $(phone).find('td.place').text(i + 1)
 
 get_translation = (key)->
-  $('.translations').find("div[data-key='" + key + "']").attr('data-value')
+  $('.translations').find("div[data-key='" + key + "']").data('value')
 
 init = ->
   ((i, s, o, g, r, a, m) ->
@@ -88,8 +128,7 @@ init = ->
   $share_results.popover({container: '.container', html: true, placement: 'left', 'content': content})
 
   $('.phone').each (index)->
-    set_price(this)
-    set_points(this)
+    set_points_and_price(this)
 
 # EVENTS
 $(document).on "turbolinks:load", ->

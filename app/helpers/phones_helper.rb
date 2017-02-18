@@ -2,9 +2,9 @@ module PhonesHelper
   include VersusComHelper
 
   def get_all_phones(phone_names)
-    phone_names.uniq.map do |phone_name|
-      get_phone_data_with_name(phone_name, false)
-    end.sort { |a, b| - (a[:points] <=> b[:points]) }.uniq
+    phone_names.map do |phone_name|
+      get_dummy_data(phone_name)
+    end
   end
 
   def show_price(price)
@@ -16,7 +16,6 @@ module PhonesHelper
   end
 
   def language_link(locale)
-    # debugger
     if request.query_string.length > 0
       phones_compare_path(locale: locale) + '?' + request.query_string
     else

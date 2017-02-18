@@ -21,9 +21,9 @@ ru:
   phone_model: 'Название модели'
   possible_price: 'Возможная цена'
   total_points: 'Кол-во очков'
-  possible_price_for_phone: "Возможная цена для '%{name}' на Amazon"
-  compare_phone_with_top_phone: "Сравнить '%{name}' с лучшим телефоном на versus.com"
   js_translations:
+    possible_price_for_phone: "Возможная цена для %{name} на Amazon"
+    compare_phone_with_top_phone: "Сравнить %{name} с лучшим телефоном на versus.com"
     no_data: 'Нет данных'
     type_phones_into_text_field: 'Пожалуйства введите интересующиеся телефоны в форму.'
     link_to_share: 'Ссылка на страницу: '

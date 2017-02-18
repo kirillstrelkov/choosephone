@@ -49,6 +49,16 @@ module VersusComHelper
     phone_data
   end
 
+  def get_dummy_data(name)
+    {
+      name: name,
+      points: -1,
+      url: nil,
+      vs_url: nil,
+      price: nil
+    }
+  end
+
   def get_phone_data_with_name(name, load_points = true)
     data = {
       name: name,

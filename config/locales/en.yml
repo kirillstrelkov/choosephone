@@ -43,9 +43,9 @@ en:
   phone_model: 'Phone model'
   possible_price: 'Possible price'
   total_points: 'Total points'
-  possible_price_for_phone: "Possible price for '%{name}' on Amazon"
-  compare_phone_with_top_phone: "Compare '%{name}' with top phone on versus.com"
   js_translations:
+    possible_price_for_phone: "Possible price for %{name} on Amazon"
+    compare_phone_with_top_phone: "Compare %{name} with top phone on versus.com"
     no_data: 'No data'
     type_phones_into_text_field: 'Please type interested phones in text field.'
     link_to_share: 'Link to share: '

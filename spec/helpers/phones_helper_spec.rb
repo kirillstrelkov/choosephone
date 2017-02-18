@@ -5,8 +5,8 @@ RSpec.describe PhonesHelper, type: :helper do
     it 'should return json object for sony-xperia-z3' do
       json = get_all_phones(['sony z3', 'sony z2'])
       expect(json.length).to eq(2)
-      expect(json[0][:name]).to eq('Sony Xperia Z3')
-      expect(json[1][:name]).to eq('Sony Xperia Z2')
+      expect(json[0][:name]).to eq('sony z3')
+      expect(json[1][:name]).to eq('sony z2')
     end
   end
 end

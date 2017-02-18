@@ -88,16 +88,24 @@
                 =t(:total_points)
           %tbody
             -@phones.each  do |phone|
-              -index = @phones.index(phone) + 1
-              %tr{class: 'phone'}
+              - index = @phones.index(phone) + 1
+              - name = phone[:name]
+              - url = phone[:url] || '#'
+              - vs_url = phone[:vs_url] || '#'
+              - price = phone[:price]
+              - points = phone[:points]
+              %tr{class: 'phone',
+                  'data-name': name, 'data-query': name,
+                  'data-url': url, 'data-vs_url': vs_url,
+                  'data-price': price, 'data-points': points}
                 %td{class: 'place'}
-                  =index
+                  = index
                 %td{class: 'name'}
-                  =link_to phone[:name], phone[:url], title: phone[:name], target: '_blank'
+                  = name
                 %td{class: 'price'}
-                  =link_to show_price(phone[:price]), '#', title: t(:possible_price_for_phone, name: phone[:name]), target: '_blank'
+                  = show_price(price)
                 %td{class: 'points'}
-                  =link_to show_price(phone[:points]), phone[:vs_url], title: t(:compare_phone_with_top_phone, name: phone[:name]), target: '_blank'
+                  = show_points(points)
 
 %div{class: 'translations'}
   - if t('js_translations').is_a?(Hash)

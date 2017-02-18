@@ -11,7 +11,8 @@ class PhonesController < ApplicationController
       flash[:notice] = t('flash.no_phones_entered') if commit != 'clear'
       redirect_to phones_index_path
     else
-      @phones = get_all_phones(@query.split(','))
+      phones = @query.split(',').map(&:strip).delete_if(&:empty?)
+      @phones = get_all_phones(phones)
       @title = @phones.map { |p| p[:name].strip }.join(' vs ')
       @description = t('page.description_prefix') + ' ' + @title + ' ?'
       render :index
