@@ -18,22 +18,27 @@ set_points = (phone)->
   lang = $('html').prop('lang')
   phone_name = $name.prop('title')
   url = '/' + lang + '/versuscom/' + encodeURIComponent(phone_name) + '/points'
-  $.getJSON url, (resp)->
-    $points = $phone.find('td.points a')
-    if resp.points > 0
-      $points.text(resp.points)
-      $points.prop('href', resp.vs_url)
-    else
-      $points.parent().text(get_translation('no_data'))
-    points = $('td.points').map ()->
-      text = $(this).text().trim()
-      value = parseInt(text)
-      if isNaN(value) then text else value
-    good_points = points.filter (i, e)->
-      e > 0 or e == get_translation('no_data')
-    all_elements_are_loaded = points.length == good_points.length
-    if all_elements_are_loaded
-      sort(points)
+  $.ajax url,
+    dataType: 'json'
+    success:  (resp)->
+      $points = $phone.find('td.points a')
+      if resp.points > 0
+        $points.text(resp.points)
+        $points.prop('href', resp.vs_url)
+      else
+        $points.parent().text(get_translation('no_data'))
+      points = $('td.points').map ()->
+        text = $(this).text().trim()
+        value = parseInt(text)
+        if isNaN(value) then text else value
+      good_points = points.filter (i, e)->
+        e > 0 or e == get_translation('no_data')
+      all_elements_are_loaded = points.length == good_points.length
+      if all_elements_are_loaded
+        sort(points)
+    error: (jqxhr, text_status, error)->
+      if text_status == 503
+        set_points(phone)
 
 sort = (points)->
   points.sort( (a,b)-> a - b ) # reverse sort
