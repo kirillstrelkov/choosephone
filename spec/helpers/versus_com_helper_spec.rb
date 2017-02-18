@@ -16,6 +16,28 @@ RSpec.describe VersusComHelper, type: :helper do
       expect(objects.first['name']).to eq('Sony Xperia Z3')
       expect(objects.first['name_url']).to eq('sony-xperia-z3')
     end
+
+    it 'should return suggestions for Samsung Galaxy S7' do
+      objects = get_phone_names_json('Samsung Galaxy S7')
+      expect(objects.length).to be > 0
+      expect(objects.first['name']).to eq('Samsung Galaxy S7')
+      expect(objects.first['name_url']).to eq('samsung-galaxy-s7')
+    end
+
+    it 'should return suggestions for Samsung Galaxy S7 edge' do
+      objects = get_phone_names_json('Samsung Galaxy S7 edge')
+      expect(objects.length).to be > 0
+      expect(objects.first['name']).to eq('Samsung Galaxy S7 edge')
+      expect(objects.first['name_url']).to eq('samsung-galaxy-s7-edge')
+    end
+
+    it 'should return suggestions for Asus ZenFone 3' do
+      objects = get_phone_names_json('Asus ZenFone 3')
+      puts objects
+      expect(objects.length).to be > 0
+      expect(objects.first['name']).to eq('Asus ZenFone 3')
+      expect(objects.first['name_url']).to eq('Asus ZenFone 3')
+    end
   end
 
   describe '#get_phone_data' do
