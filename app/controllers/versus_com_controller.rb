@@ -10,11 +10,14 @@ class VersusComController < ApplicationController
         data[k] = v.gsub('/en/', "/#{locale}/") if k.to_s.include?('url')
       end
     end
+    Rails.logger.debug("VersusComController.points('#{params[:phone_name]}') -> '#{data}'")
     render json: data
   end
 
   def price
-    render json: get_data(:amazon, params[:phone_name])
+    data = get_data(:amazon, params[:phone_name])
+    Rails.logger.debug("VersusComController.price('#{params[:phone_name]}') -> '#{data}'")
+    render json: data
   end
 
   private
