@@ -36,14 +36,15 @@ en:
     clear: 'Clear'
     search_and_sort: 'Search and sort phones'
     placeholder: "Enter here list of interested phones using comma(',') as delimiter. Example: LG P500, LG P760, Nexus 5"
-  loading: 'Loading...'
   phones_header: 'Sorted phones:'
   generating_link: 'Generating link to share, please wait...'
   share_results: 'Share results'
   phone_model: 'Phone model'
   possible_price: 'Possible price'
   total_points: 'Total points'
+  loading: 'Loading...'
   js_translations:
+    loading: 'Loading...'
     possible_price_for_phone: "Possible price for %{name} on Amazon"
     compare_phone_with_top_phone: "Compare %{name} with top phone on versus.com"
     no_data: 'No data'

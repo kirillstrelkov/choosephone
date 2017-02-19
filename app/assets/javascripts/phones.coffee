@@ -5,6 +5,18 @@ update_title = ()->
     $('.phone').map(()-> $(this).data('name')).toArray().join(' vs ')
   )
 
+update_progress = ()->
+  $points = $('.points')
+  total = $points.length
+  loaded = $points.filter(()-> $(this).text().indexOf(get_translation('loading')) == -1).length
+  progress = loaded / total * 100
+  $progress = $('.progress-bar')
+  $progress.attr('aria-valuenow', progress)
+  $progress.css('width', "#{progress}%")
+  $progress.find('.sr-only').text("#{progress}%")
+  if loaded == total
+    $('.modal').modal('hide')
+
 update_row_data = (row, data)->
   $row = $(row)
   $row.data(data)
@@ -72,6 +84,7 @@ set_points_and_price = (phone)->
       format_row_data($phone)
       sort_phones()
       update_title()
+      update_progress()
       set_price($phone)
     error: (jqxhr, text_status, error)->
       if text_status == 503
@@ -127,7 +140,13 @@ init = ->
   content += "<a href='#{href}' target='_blank'>#{text}</a>"
   $share_results.popover({container: '.container', html: true, placement: 'left', 'content': content})
 
-  $('.phone').each (index)->
+  $phones = $('.phone')
+  if $phones.length > 0
+    $('.modal').modal('show')
+  else
+    $('.modal').modal('hide')
+
+  $phones.each (index)->
     set_points_and_price(this)
 
 # EVENTS
