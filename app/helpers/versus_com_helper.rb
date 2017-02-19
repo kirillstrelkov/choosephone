@@ -5,7 +5,6 @@ require 'capybara'
 require 'capybara/poltergeist'
 
 module VersusComHelper
-  include RedisHelper
   include Capybara::DSL
 
   VERSUS_URL = 'https://www.versus.com'
@@ -28,7 +27,7 @@ module VersusComHelper
     json.sort_by { |a| Levenshtein.distance(a['name'], name) }
   end
 
-  def get_phone_data(name_url, load_points=true)
+  def get_phone_data(name_url)
     uri = URI.encode('https://versus.com/en/' + name_url)
     versus_top_phone_url = VERSUS_URL_WITH_TO_PHONE + name_url
     phone_data = { name: t(:unknown),
@@ -44,7 +43,7 @@ module VersusComHelper
       phone_data[:name] = name
     end
 
-    phone_data[:points] = get_points if load_points
+    phone_data[:points] = get_points
 
     phone_data
   end
@@ -59,19 +58,12 @@ module VersusComHelper
     }
   end
 
-  def get_phone_data_with_name(name, load_points = true)
-    data = {
-      name: name,
-      points: -1,
-      url: nil,
-      vs_url: nil,
-      price: nil
-    }
+  def get_phone_data_with_name(name)
+    data = get_dummy_data(name)
     json_name = get_phone_names_json(name.strip)
     unless json_name.empty?
       name_url = json_name.first['name_url']
-      data = get(:versus, name_url)
-      data = get_phone_data(name_url, load_points) unless data
+      data = get_phone_data(name_url)
     end
     data
   end

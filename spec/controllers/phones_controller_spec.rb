@@ -29,7 +29,7 @@ RSpec.describe PhonesController, type: :controller do
         expect(response).to have_http_status(:success)
         body = response.body
         expect(body).to have_css('tbody tr', count: 2)
-        expect(body).to have_content('Loading...', count: 4)
+        expect(body).to have_content('Loading...', count: 5)
         expect(body).to have_content('z1 compact')
         expect(body).to have_content('z3 compact')
       end
