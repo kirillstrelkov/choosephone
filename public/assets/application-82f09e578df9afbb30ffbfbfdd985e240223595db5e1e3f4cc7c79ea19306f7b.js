@@ -12219,7 +12219,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   set_price = function(row) {
     var $row, phone_name, url;
     $row = $(row);
-    phone_name = $row.data('name');
+    phone_name = $row.data('query');
     url = '/versuscom/' + encodeURIComponent(phone_name) + '/price';
     return $.ajax(url, {
       dataType: 'json',

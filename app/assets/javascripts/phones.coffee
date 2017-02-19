@@ -65,7 +65,7 @@ update_prices = ()->
 
 set_price = (row)->
   $row = $(row)
-  phone_name = $row.data('name')
+  phone_name = $row.data('query')
   url = '/versuscom/' + encodeURIComponent(phone_name) + '/price'
   $.ajax url,
     dataType: 'json'
