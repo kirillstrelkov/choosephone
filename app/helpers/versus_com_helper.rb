@@ -24,7 +24,9 @@ module VersusComHelper
   def get_phone_names_json(name)
     uri = URI.encode("#{VERSUS_URL}/object?q=#{name}")
     json = JSON.parse(open(uri).read)
-    json.sort_by { |a| Levenshtein.distance(a['name'], name) }
+    sorted = json.sort_by { |a| Levenshtein.distance(a['name'], name) }
+    Rails.logger.debug("VersusComHelper.get_phone_names_json('#{name}') -> '#{sorted}'")
+    sorted
   end
 
   def get_phone_data(name_url)
@@ -38,13 +40,14 @@ module VersusComHelper
 
     visit(uri)
     names = all(:css, 'div[class*=rivalName]')
+    Rails.logger.debug("VersusComHelper.get_phone_data names='#{names}'")
     unless names.empty?
       name = names[0].text.strip
       phone_data[:name] = name
     end
 
     phone_data[:points] = get_points
-
+    Rails.logger.debug("VersusComHelper.get_phone_data('#{name_url}') -> '#{phone_data}'")
     phone_data
   end
 
@@ -59,12 +62,14 @@ module VersusComHelper
   end
 
   def get_phone_data_with_name(name)
+    name.strip!
     data = get_dummy_data(name)
-    json_name = get_phone_names_json(name.strip)
+    json_name = get_phone_names_json(name)
     unless json_name.empty?
       name_url = json_name.first['name_url']
       data = get_phone_data(name_url)
     end
+    Rails.logger.debug("VersusComHelper.get_phone_data_with_name('#{name}') -> '#{data}'")
     data
   end
 

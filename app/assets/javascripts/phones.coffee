@@ -90,13 +90,16 @@ set_points_and_price = (phone)->
   $.ajax url,
     dataType: 'json'
     success:  (resp)->
-      update_row_data($phone, resp)
-      format_row_data($phone)
-      update_title()
-      update_progress()
-      if is_points_loaded()
-        sort_phones()
-        update_prices()
+      if resp.status == '500'
+        set_points_and_price(phone)
+      else
+        update_row_data($phone, resp)
+        format_row_data($phone)
+        update_title()
+        update_progress()
+        if is_points_loaded()
+          sort_phones()
+          update_prices()
     error: (jqxhr, text_status, error)->
       if jqxhr.status == 503
         set_points_and_price(phone)
