@@ -12134,70 +12134,158 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
 }(jQuery);
 (function() {
-  var get_translation, init, set_points, set_price, sort;
+  var format_row_data, format_row_price, get_translation, init, is_points_loaded, set_points_and_price, set_price, sort_phones, update_prices, update_progress, update_row_data, update_title;
 
-  set_price = function(phone) {
-    var phone_name, url;
-    phone_name = $(phone).find('td.name a').prop('title');
+  update_title = function() {
+    return $(document).prop('title', $('.phone').map(function() {
+      return $(this).data('name');
+    }).toArray().join(' vs '));
+  };
+
+  is_points_loaded = function() {
+    var $points, loaded, total;
+    $points = $('.points');
+    total = $points.length;
+    loaded = $points.filter(function() {
+      return $(this).text().indexOf(get_translation('loading')) === -1;
+    }).length;
+    return $points.length === loaded;
+  };
+
+  update_progress = function() {
+    var $points, $progress, loaded, progress, total;
+    $points = $('.points');
+    total = $points.length;
+    loaded = $points.filter(function() {
+      return $(this).text().indexOf(get_translation('loading')) === -1;
+    }).length;
+    progress = loaded / total * 100;
+    $progress = $('.progress-bar');
+    $progress.attr('aria-valuenow', progress);
+    $progress.css('width', progress + "%");
+    $progress.find('.sr-only').text(progress + "%");
+    if (loaded === total) {
+      return $('.modal').modal('hide');
+    }
+  };
+
+  update_row_data = function(row, data) {
+    var $row;
+    $row = $(row);
+    return $row.data(data);
+  };
+
+  format_row_data = function(row) {
+    var $name, $points, $row, a, points, points_title;
+    $row = $(row);
+    $name = $row.find('.name');
+    $points = $row.find('.points');
+    points_title = get_translation('compare_phone_with_top_phone').replace('%{name}', $row.data('name'));
+    $name.empty();
+    a = "<a href='" + ($row.data('url')) + "' target='_blank' title='" + ($row.data('name')) + "'>" + ($row.data('name')) + "</a>";
+    $name.append(a);
+    points = $row.data('points');
+    $points.empty();
+    if (parseInt(points) > 0) {
+      points = points;
+      a = "<a href='" + ($row.data('vs_url')) + "' target='_blank' title='" + points_title + "'>" + points + "</a>";
+    } else {
+      a = get_translation('no_data');
+    }
+    return $points.append(a);
+  };
+
+  format_row_price = function(row) {
+    var $price, $row, a, price, price_title;
+    $row = $(row);
+    $price = $row.find('.price');
+    price_title = get_translation('possible_price_for_phone').replace('%{name}', $row.data('name'));
+    $price.empty();
+    price = $row.data('price');
+    if (price === null) {
+      a = get_translation('no_data');
+    } else {
+      a = "<a href='" + ($row.data('amazon_url')) + "' target='_blank' title='" + price_title + "'>" + price + "</a>";
+    }
+    return $price.append(a);
+  };
+
+  update_prices = function() {
+    return $('.phone').each(function() {
+      return set_price($(this));
+    });
+  };
+
+  set_price = function(row) {
+    var $row, phone_name, url;
+    $row = $(row);
+    phone_name = $row.data('name');
     url = '/versuscom/' + encodeURIComponent(phone_name) + '/price';
-    return $.getJSON(url, function(resp) {
-      var $price, lowestPrice;
-      url = resp.url;
-      lowestPrice = resp.lowestPrice;
-      $price = $(phone).find('td.price a');
-      if (lowestPrice) {
-        $price.text(lowestPrice);
-        return $price.prop('href', url);
-      } else {
-        return $price.parent().text(no_data_msg);
-      }
-    });
-  };
-
-  set_points = function(phone) {
-    var $name, $phone, lang, phone_name, url;
-    $phone = $(phone);
-    $name = $(phone).find('td.name a');
-    lang = $('html').prop('lang');
-    phone_name = $name.prop('title');
-    url = '/' + lang + '/versuscom/' + encodeURIComponent(phone_name) + '/points';
-    return $.getJSON(url, function(resp) {
-      var $points, all_elements_are_loaded, good_points, points;
-      $points = $phone.find('td.points a');
-      if (resp.points > 0) {
-        $points.text(resp.points);
-        $points.prop('href', resp.vs_url);
-      } else {
-        $points.parent().text(no_data_msg);
-      }
-      points = $('td.points').map(function() {
-        var text, value;
-        text = $(this).text().trim();
-        value = parseInt(text);
-        if (isNaN(value)) {
-          return text;
+    return $.ajax(url, {
+      dataType: 'json',
+      success: function(resp) {
+        var $price, lowestPrice;
+        url = resp.url;
+        lowestPrice = resp.lowestPrice;
+        $price = $(row).find('td.price');
+        if (lowestPrice) {
+          update_row_data($row, {
+            'price': lowestPrice,
+            'amazon_url': url
+          });
         } else {
-          return value;
+          $price.text(get_translation('no_data'));
         }
-      });
-      good_points = points.filter(function(i, e) {
-        return e > 0 || e === no_data_msg;
-      });
-      all_elements_are_loaded = points.length === good_points.length;
-      if (all_elements_are_loaded) {
-        return sort(points);
+        return format_row_price($row);
+      },
+      error: function(jqxhr, text_status, error) {
+        if (jqxhr.status === 503) {
+          return set_price(row);
+        }
       }
     });
   };
 
-  sort = function(points) {
-    points.sort();
+  set_points_and_price = function(phone) {
+    var $phone, lang, phone_name, url;
+    $phone = $(phone);
+    phone_name = $(phone).data('query');
+    lang = $('html').prop('lang');
+    url = '/' + lang + '/versuscom/' + encodeURIComponent(phone_name) + '/points';
+    return $.ajax(url, {
+      dataType: 'json',
+      success: function(resp) {
+        update_row_data($phone, resp);
+        format_row_data($phone);
+        update_title();
+        update_progress();
+        if (is_points_loaded()) {
+          sort_phones();
+          return update_prices();
+        }
+      },
+      error: function(jqxhr, text_status, error) {
+        if (jqxhr.status === 503) {
+          return set_points_and_price(phone);
+        }
+      }
+    });
+  };
+
+  sort_phones = function() {
+    var $phones, points;
+    $phones = $('.phone');
+    points = $phones.map(function() {
+      return $(this).data('points');
+    });
+    points.sort(function(a, b) {
+      return a - b;
+    });
     $(points).each(function(i, point) {
-      return $('td.points a').each(function(j, $point) {
-        var $parent;
-        if (point === parseInt($($point).text())) {
-          $parent = $($point).parent().parent();
-          return $('tbody').prepend($parent);
+      return $phones.each(function(j, $phone) {
+        $phone = $($phone);
+        if (point === parseInt($phone.data('points'))) {
+          return $('tbody').prepend($phone);
         }
       });
     });
@@ -12207,11 +12295,11 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
   };
 
   get_translation = function(key) {
-    return $('.translations').find("div[data-key='" + key + "']").attr('data-value');
+    return $('.translations').find("div[data-key='" + key + "']").data('value');
   };
 
   init = function() {
-    var $share_results, content, cur_client_width, href, max_chars, max_client_width, no_data_msg, text;
+    var $phones, $share_results, content, cur_client_width, href, max_chars, max_client_width, text;
     (function(i, s, o, g, r, a, m) {
       i["GoogleAnalyticsObject"] = r;
       i[r] = i[r] || function() {
@@ -12227,7 +12315,6 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
     ga('create', 'UA-53906467-1', 'auto');
     ga('send', 'pageview');
     $('#search_btn').removeAttr('name');
-    no_data_msg = get_translation('no_data');
     $share_results = $('#share_results');
     href = window.location.href;
     max_client_width = 620;
@@ -12241,11 +12328,20 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
     }
     text = decodeURI(href).substring(0, max_chars - 3) + '...';
     content += "<a href='" + href + "' target='_blank'>" + text + "</a>";
-    return $share_results.popover({
+    $share_results.popover({
       container: '.container',
       html: true,
       placement: 'left',
       'content': content
+    });
+    $phones = $('.phone');
+    if ($phones.length > 0) {
+      $('.modal').modal('show');
+    } else {
+      $('.modal').modal('hide');
+    }
+    return $phones.each(function(index) {
+      return set_points_and_price(this);
     });
   };
 
@@ -12271,14 +12367,10 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
       delay = function(ms, func) {
         return setTimeout(func, ms);
       };
-      delay(1000, function() {
+      return delay(1000, function() {
         return $('#notice').hide('slow');
       });
     }
-    return $('.phone').each(function(index) {
-      set_price(this);
-      return set_points(this);
-    });
   });
 
 }).call(this);

@@ -5,6 +5,12 @@ update_title = ()->
     $('.phone').map(()-> $(this).data('name')).toArray().join(' vs ')
   )
 
+is_points_loaded = ()->
+  $points = $('.points')
+  total = $points.length
+  loaded = $points.filter(()-> $(this).text().indexOf(get_translation('loading')) == -1).length
+  $points.length == loaded
+
 update_progress = ()->
   $points = $('.points')
   total = $points.length
@@ -53,6 +59,10 @@ format_row_price = (row)->
     a = "<a href='#{$row.data('amazon_url')}' target='_blank' title='#{price_title}'>#{price}</a>"
   $price.append(a)
 
+update_prices = ()->
+  $('.phone').each ()->
+    set_price($(this))
+
 set_price = (row)->
   $row = $(row)
   phone_name = $row.data('name')
@@ -69,7 +79,7 @@ set_price = (row)->
         $price.text(get_translation('no_data'))
       format_row_price($row)
     error: (jqxhr, text_status, error)->
-      if text_status == 503
+      if jqxhr.status == 503
         set_price(row)
 
 set_points_and_price = (phone)->
@@ -82,12 +92,13 @@ set_points_and_price = (phone)->
     success:  (resp)->
       update_row_data($phone, resp)
       format_row_data($phone)
-      sort_phones()
       update_title()
       update_progress()
-      set_price($phone)
+      if is_points_loaded()
+        sort_phones()
+        update_prices()
     error: (jqxhr, text_status, error)->
-      if text_status == 503
+      if jqxhr.status == 503
         set_points_and_price(phone)
 
 sort_phones = ()->
