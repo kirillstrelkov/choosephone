@@ -6,20 +6,20 @@ gem 'rails', '5.2.0'
 gem 'puma'
 
 # Heroku
-gem 'rails_12factor', group: :production
 gem 'heroku_rails_deflate', group: :production
+gem 'rails_12factor', group: :production
 
 gem 'bootstrap-sass'
+gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'coffee-rails'
 
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'turbolinks'
 
-gem 'haml-rails'
 gem 'capybara'
+gem 'haml-rails'
 gem 'poltergeist'
 gem 'redis-rails'
 
@@ -35,9 +35,9 @@ group :development, :test do
 end
 
 group :test do
+  gem 'chromedriver-helper'
+  gem 'cucumber'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'cucumber'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
 end
