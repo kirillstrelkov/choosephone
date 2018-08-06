@@ -6,7 +6,6 @@ gem 'rails', '5.2.0'
 gem 'puma'
 
 # Heroku
-gem 'heroku_rails_deflate', group: :production
 gem 'rails_12factor', group: :production
 
 gem 'bootstrap-sass'

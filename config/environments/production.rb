@@ -76,8 +76,4 @@ Rails.application.configure do
 
   config.force_ssl = true
 
-  config.serve_static_files = true
-  config.assets.compress = true
-  config.assets.compile = true
-  config.assets.digest = true
 end
