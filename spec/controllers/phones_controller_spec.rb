@@ -5,7 +5,7 @@ RSpec.describe PhonesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
-      get :index, locale: :en
+      get :index, params: { locale: :en }
       expect(response).to have_http_status(:success)
       body = response.body
       expect(body).to have_css('.panel')
@@ -19,13 +19,13 @@ RSpec.describe PhonesController, type: :controller do
   describe 'GET #compare' do
     context 'without parameters' do
       it 'redirects to index' do
-        get :compare, locale: :en
+        get :compare, params: { locale: :en }
         expect(response).to redirect_to(phones_index_url)
       end
     end
     context 'with parameters' do
       it 'returns http success' do
-        get :compare, locale: :en, phone_names: 'z1 compact, z3 compact'
+        get :compare, params: { locale: :en, phone_names: 'z1 compact, z3 compact' }
         expect(response).to have_http_status(:success)
         body = response.body
         expect(body).to have_css('tbody tr', count: 2)

@@ -22,8 +22,8 @@ Feature: Search for phones
     And points are correct for 'Sony Xperia Z3'
     And price is correct for 'Sony Xperia Z3'
     And I should see 'Sony Xperia Z2' on page
-    And points are correct for 'Sony Xperia Z2'
-    And price is correct for 'Sony Xperia Z2'
+    And points are correct for 'Sony Xperia Z2 White'
+    And price is correct for 'Sony Xperia Z2 White'
 
   Scenario: User searches for tablets, points and prices are visible
     Given I am on main page

@@ -4,7 +4,7 @@ RSpec.describe VersusComController, type: :controller do
   describe 'GET #points' do
     context 'for good name' do
       it 'returns currect object' do
-        get :points, phone_name: 'sony xperia z3', locale: :en, format: 'json'
+        get :points, params: { phone_name: 'sony xperia z3', locale: :en, format: 'json' }
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
         data = JSON.parse(response.body)
@@ -17,7 +17,7 @@ RSpec.describe VersusComController, type: :controller do
       end
 
       it 'returns correct object for ENG locale' do
-        get :points, phone_name: 'sony xperia z3', locale: :en, format: 'json'
+        get :points, params: { phone_name: 'sony xperia z3', locale: :en, format: 'json' }
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
         data = JSON.parse(response.body)
@@ -32,7 +32,7 @@ RSpec.describe VersusComController, type: :controller do
       end
 
       it 'returns correct object for RU locale' do
-        get :points, phone_name: 'sony xperia z3', locale: :ru, format: 'json'
+        get :points, params: { phone_name: 'sony xperia z3', locale: :ru, format: 'json' }
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
         data = JSON.parse(response.body)
@@ -51,7 +51,7 @@ RSpec.describe VersusComController, type: :controller do
   describe 'GET #price' do
     context 'for good name' do
       it 'returns correct object' do
-        get :price, phone_name: 'sony xperia z3 compact', format: 'json'
+        get :price, params: { phone_name: 'sony xperia z3 compact', format: 'json' }
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
         data = JSON.parse(response.body)

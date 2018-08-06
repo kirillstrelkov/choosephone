@@ -57,7 +57,7 @@ Then(/^points are correct for '(.+)'$/) do |phone_name|
   ).text
   expect(points).to match(/\d+/)
   is_tablet = /tablet|ipad/.match(phone_name.downcase)
-  expect(points.to_i).to be > (is_tablet ? 500 : 20_000)
+  expect(points.to_i).to be > (is_tablet ? 500 : 3_000)
 end
 
 Then(/^price is correct for '(.+)'$/) do |phone_name|
@@ -87,4 +87,8 @@ end
 
 When(/^I click '(.+)' link$/) do |text|
   click_link(text)
+end
+
+When(/^I debug$/) do |text|
+  byebug
 end

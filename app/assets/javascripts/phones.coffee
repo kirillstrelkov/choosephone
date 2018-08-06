@@ -167,9 +167,6 @@ init = ->
 $(document).on "turbolinks:load", ->
   init()
 
-$(document).ready ->
-  init()
-
 $(document).on 'click', '#clear_btn', (event)->
   event.preventDefault()
   $('#phone_names').val('')

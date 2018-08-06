@@ -43,7 +43,7 @@ RSpec.describe VersusComHelper, type: :helper do
     it 'should return data for sony z3' do
       data = get_phone_data('sony-xperia-z3')
       expect(data[:name]).to eq('Sony Xperia Z3')
-      expect(data[:points]).to be > 20_000
+      expect(data[:points]).to be > 3_000
       expect(data[:url]).to eq('https://versus.com/en/sony-xperia-z3')
       expect(data[:vs_url]).to eq('https://versus.com/en/sony-xperia-z5-premium-dual-vs-sony-xperia-z3')
       expect(data[:price]).to be_nil
@@ -54,7 +54,7 @@ RSpec.describe VersusComHelper, type: :helper do
     it 'should return data for sony z3' do
       data = get_phone_data_with_name('sony z3')
       expect(data[:name]).to eq('Sony Xperia Z3')
-      expect(data[:points]).to be > 20_000
+      expect(data[:points]).to be > 3_000
       expect(data[:url]).to eq('https://versus.com/en/sony-xperia-z3')
       expect(data[:vs_url]).to eq('https://versus.com/en/sony-xperia-z5-premium-dual-vs-sony-xperia-z3')
     end

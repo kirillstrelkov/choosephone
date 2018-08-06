@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.5.1'
 
-gem 'rails', '4.2.4'
+gem 'rails', '5.2.0'
 
 gem 'puma'
 
@@ -10,9 +10,9 @@ gem 'rails_12factor', group: :production
 gem 'heroku_rails_deflate', group: :production
 
 gem 'bootstrap-sass'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 
 gem 'jquery-rails'
 gem 'turbolinks'
