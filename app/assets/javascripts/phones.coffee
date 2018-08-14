@@ -164,7 +164,7 @@ init = ->
     set_points_and_price(this)
 
 # EVENTS
-$(document).on "turbolinks:load", ->
+$(document).on "ready, turbolinks:load", ->
   init()
 
 $(document).on 'click', '#clear_btn', (event)->

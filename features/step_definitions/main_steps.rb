@@ -56,7 +56,7 @@ Then(/^points are correct for '(.+)'$/) do |phone_name|
     "//a[@title='#{phone_name}']/../../*[@class='points']"
   ).text
   expect(points).to match(/\d+/)
-  is_tablet = /tablet|ipad/.match(phone_name.downcase)
+  is_tablet = /tab|ipad/.match(phone_name.downcase)
   expect(points.to_i).to be > (is_tablet ? 500 : 3_000)
 end
 

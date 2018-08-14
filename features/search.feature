@@ -27,12 +27,12 @@ Feature: Search for phones
 
   Scenario: User searches for tablets, points and prices are visible
     Given I am on main page
-    When I fill in textarea with 'sony z4 tablet, ipad pro'
+    When I fill in textarea with 'samsung tab s3, ipad pro'
     And I click 'Search and sort phones' button
     Then I wait for 'Loading' is not visible
-    And I should see 'Sony Xperia Z4 Tablet' on page
-    And points are correct for 'Sony Xperia Z4 Tablet'
-    And price is correct for 'Sony Xperia Z4 Tablet'
+    And I should see 'Samsung Galaxy Tab S3' on page
+    And points are correct for 'Samsung Galaxy Tab S3'
+    And price is correct for 'Samsung Galaxy Tab S3'
     And I should see 'Apple iPad Pro' on page
     And points are correct for 'Apple iPad Pro'
     And price is correct for 'Apple iPad Pro'
