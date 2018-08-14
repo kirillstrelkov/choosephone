@@ -164,7 +164,11 @@ init = ->
     set_points_and_price(this)
 
 # EVENTS
-$(document).on "ready, turbolinks:load", ->
+$(document).on "turbolinks:load", ->
+  init()
+
+# needed for heroku:
+$(document).on "ready", ->
   init()
 
 $(document).on 'click', '#clear_btn', (event)->

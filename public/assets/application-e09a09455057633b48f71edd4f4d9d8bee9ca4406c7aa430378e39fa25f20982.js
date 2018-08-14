@@ -11828,7 +11828,11 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
     });
   };
 
-  $(document).on("ready, turbolinks:load", function() {
+  $(document).on("turbolinks:load", function() {
+    return init();
+  });
+
+  $(document).on("ready", function() {
     return init();
   });
 
