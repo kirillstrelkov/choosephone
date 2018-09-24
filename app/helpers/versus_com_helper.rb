@@ -92,6 +92,7 @@ module VersusComHelper
   end
 
   def set_points(driver, data)
+    driver.visit(data[:url])
     points = driver.find_css('div[class*=points] span[class*=ScoreChart]')
     data[:points] = points[0].visible_text.scan(/\d+/).join('').to_i \
                     unless points.empty?
