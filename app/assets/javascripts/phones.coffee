@@ -1,3 +1,5 @@
+phones_initialized = false
+
 # FUNCTIONS
 update_title = ()->
   $(document).prop(
@@ -121,6 +123,10 @@ get_translation = (key)->
   $('.translations').find("div[data-key='" + key + "']").data('value')
 
 init = ->
+  if phones_initialized == true
+    return
+  else
+    phones_initialized = true
   ((i, s, o, g, r, a, m) ->
       i["GoogleAnalyticsObject"] = r
       i[r] = i[r] or ->

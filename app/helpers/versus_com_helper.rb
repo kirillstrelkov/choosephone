@@ -10,10 +10,11 @@ module VersusComHelper
 
   VERSUS_URL = 'https://www.versus.com'.freeze
   VERSUS_URL_WITH_TO_PHONE = 'https://versus.com/en/samsung-galaxy-s9-plus-qualcomm-snapdragon-845-vs-'.freeze
-  AMAZON_SEARCH_URL = 'https://versus.com/pricetags/get'.freeze
+  AMAZON_SEARCH_URL = 'https://versus.com/api/prices/pricetags/get'.freeze
 
   def get_price(phone_name)
-    uri = URI.escape("#{AMAZON_SEARCH_URL}?keywords=#{phone_name}")
+    name_url = get_phone_names_json(phone_name).first['name_url']
+    uri = URI.escape("#{AMAZON_SEARCH_URL}?name_url=#{name_url}&country=DE&type=vs")
     begin
       json_obj = JSON.parse(open(uri).read, symbolize_names: true)
       json_obj[:pricetags][0]
@@ -47,6 +48,9 @@ module VersusComHelper
     driver = Capybara::Poltergeist::Driver.new(
       "driver#{name_url}", js_errors: false
     )
+
+    # driver.visit('http://github.com/')
+    driver.save_screenshot('/tmp/1.png')
 
     begin
       set_name(driver, phone_data)
@@ -86,15 +90,27 @@ module VersusComHelper
   private
 
   def set_name(driver, data)
-    driver.visit(data[:url])
-    names = driver.find_css('div[class*=rivalName]')
+    url = data[:url]
+    selector = 'div[class*=rivalName]'
+    driver.visit(url)
+    driver.save_screenshot('/tmp/1.png')
+    names = driver.find_css(selector)
     data[:name] = names[0].visible_text.strip unless names.empty?
+    Rails.logger.warn(
+      "Name not found, page: #{url}, selector: #{selector}"
+    ) if names.empty?
   end
 
   def set_points(driver, data)
-    driver.visit(data[:url])
-    points = driver.find_css('div[class*=points] span[class*=ScoreChart]')
+    url = data[:url]
+    selector = '.aboveChart .points .absolute'
+    driver.visit(url)
+    points = driver.find_css(selector)
     data[:points] = points[0].visible_text.scan(/\d+/).join('').to_i \
                     unless points.empty?
+
+    Rails.logger.warn(
+      "Points not found, page: #{url}, selector: #{selector}"
+    ) if points.empty?
   end
 end
