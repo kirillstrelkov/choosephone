@@ -35,9 +35,11 @@ format_row_data = (row)->
   $points = $row.find('.points')
   points_title = get_translation('compare_phone_with_top_phone').replace('%{name}', $row.data('name'))
 
-  $name.empty()
-  a = "<a href='#{$row.data('url')}' target='_blank' title='#{$row.data('name')}'>#{$row.data('name')}</a>"
-  $name.append(a)
+
+  if $row.data('url')?
+    a = "<a href='#{$row.data('url')}' target='_blank' title='#{$row.data('name')}'>#{$row.data('name')}</a>"
+    $name.empty()
+    $name.append(a)
 
   points = $row.data('points')
   $points.empty()

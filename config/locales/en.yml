@@ -53,4 +53,5 @@ en:
   flash:
     no_phones_entered: 'You did not enter any phone models'
   unknown_error_occurred: 'Unknown error occurred'
+  error_not_found: 'Data not found'
   unknown: 'Unknown'

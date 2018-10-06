@@ -42,5 +42,4 @@ Feature: Search for phones
     When I fill in textarea with 'lg p500'
     And I click 'Search and sort phones' button
     Then I should see 'lg p500' on page
-    Then I wait for 'Loading' is not visible
     And I should see 'No data' on page

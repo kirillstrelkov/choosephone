@@ -13,7 +13,9 @@ module VersusComHelper
   AMAZON_SEARCH_URL = 'https://versus.com/api/prices/pricetags/get'.freeze
 
   def get_price(phone_name)
-    name_url = get_phone_names_json(phone_name).first['name_url']
+    names_json = get_phone_names_json(phone_name)
+    return { error: t(:error_not_found) } if names_json.empty?
+    name_url = names_json.first['name_url']
     uri = URI.escape("#{AMAZON_SEARCH_URL}?name_url=#{name_url}&country=DE&type=vs")
     begin
       json_obj = JSON.parse(open(uri).read, symbolize_names: true)

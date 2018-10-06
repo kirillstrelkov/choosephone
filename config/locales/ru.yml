@@ -31,4 +31,5 @@ ru:
   flash:
     no_phones_entered: 'Вы не ввели интересующиеся телефоны'
   unknown_error_occurred: 'Неизвестная ошибка'
+  error_not_found: 'Данные не найдены'
   unknown: 'Неизвестно'
