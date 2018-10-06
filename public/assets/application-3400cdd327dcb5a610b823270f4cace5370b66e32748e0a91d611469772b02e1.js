@@ -11709,7 +11709,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
       success: function(resp) {
         var $price, lowestPrice;
         url = resp.url;
-        lowestPrice = resp.lowestPrice;
+        lowestPrice = resp.lowestPrice || resp.listPrice;
         $price = $(row).find('td.price');
         if (lowestPrice) {
           update_row_data($row, {

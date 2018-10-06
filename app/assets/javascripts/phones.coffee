@@ -75,7 +75,7 @@ set_price = (row)->
     dataType: 'json'
     success:  (resp)->
       url = resp.url
-      lowestPrice = resp.lowestPrice
+      lowestPrice = resp.lowestPrice or resp.listPrice
       $price = $(row).find('td.price')
       if lowestPrice
         update_row_data($row, {'price': lowestPrice, 'amazon_url': url})
