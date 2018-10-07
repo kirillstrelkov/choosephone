@@ -11613,9 +11613,7 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
 })( jQuery );
 (function() {
-  var format_row_data, format_row_price, get_translation, init, is_points_loaded, phones_initialized, set_points_and_price, set_price, sort_phones, update_prices, update_progress, update_row_data, update_title;
-
-  phones_initialized = false;
+  var format_row_data, format_row_price, get_translation, init, is_points_loaded, set_points_and_price, set_price, sort_phones, update_prices, update_progress, update_row_data, update_title;
 
   update_title = function() {
     return $(document).prop('title', $('.phone').map(function() {
@@ -11787,11 +11785,6 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
   init = function() {
     var $phones, $share_results, content, cur_client_width, href, max_chars, max_client_width, text;
-    if (phones_initialized === true) {
-      return;
-    } else {
-      phones_initialized = true;
-    }
     (function(i, s, o, g, r, a, m) {
       i["GoogleAnalyticsObject"] = r;
       i[r] = i[r] || function() {
