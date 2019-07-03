@@ -9,7 +9,7 @@ module VersusComHelper
   include Capybara::DSL
 
   VERSUS_URL = 'https://www.versus.com'.freeze
-  VERSUS_URL_WITH_TO_PHONE = 'https://versus.com/en/samsung-galaxy-s9-plus-qualcomm-snapdragon-845-vs-'.freeze
+  VERSUS_URL_WITH_TO_PHONE = 'https://versus.com/en/samsung-galaxy-s10-plus-vs-'.freeze
   AMAZON_SEARCH_URL = 'https://versus.com/api/prices/pricetags/get'.freeze
 
   def get_price(phone_name)
@@ -52,7 +52,7 @@ module VersusComHelper
     )
 
     # driver.visit('http://github.com/')
-    driver.save_screenshot('/tmp/1.png')
+    # driver.save_screenshot('/tmp/1.png')
 
     begin
       set_name(driver, phone_data)
@@ -93,9 +93,9 @@ module VersusComHelper
 
   def set_name(driver, data)
     url = data[:url]
-    selector = 'div[class*=rivalName]'
+    selector = '#root .nameReviewContainer'
     driver.visit(url)
-    driver.save_screenshot('/tmp/1.png')
+    # driver.save_screenshot('/tmp/1.png')
     names = driver.find_css(selector)
     data[:name] = names[0].visible_text.strip unless names.empty?
     Rails.logger.warn(
@@ -105,7 +105,7 @@ module VersusComHelper
 
   def set_points(driver, data)
     url = data[:url]
-    selector = '.aboveChart .points .absolute'
+    selector = '#root .score .pointsText'
     driver.visit(url)
     points = driver.find_css(selector)
     data[:points] = points[0].visible_text.scan(/\d+/).join('').to_i \

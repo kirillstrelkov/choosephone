@@ -15,15 +15,15 @@ Feature: Search for phones
 
   Scenario: User searches for phones, points and prices are visible
     Given I am on main page
-    When I fill in textarea with 'sony z3, sony z2'
+    When I fill in textarea with 'sony z3, samsung s7'
     And I click 'Search and sort phones' button
     Then I wait for 'Loading' is not visible
     And I should see 'Sony Xperia Z3' on page
     And points are correct for 'Sony Xperia Z3'
     And price is correct for 'Sony Xperia Z3'
-    And I should see 'Sony Xperia Z2' on page
-    And points are correct for 'Sony Xperia Z2 White'
-    And price is correct for 'Sony Xperia Z2 White'
+    And I should see 'Samsung Galaxy S7' on page
+    And points are correct for 'Samsung Galaxy S7'
+    And price is correct for 'Samsung Galaxy S7'
 
   Scenario: User searches for tablets, points and prices are visible
     Given I am on main page
