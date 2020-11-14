@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VersusComController < ApplicationController
   include VersusComHelper
   include RedisHelper
@@ -43,7 +45,7 @@ class VersusComController < ApplicationController
         if prefix == :versus
           data[:points].positive?
         else
-          data[:lowestPrice]&.match(/.\d+[,\.]\d+$/)
+          data[:lowestPrice]&.match(/.\d+[,.]\d+$/)
         end
       end
       set(prefix, name, data) if condition.call

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe VersusComHelper, type: :helper do
@@ -34,8 +36,8 @@ RSpec.describe VersusComHelper, type: :helper do
     it 'should return suggestions for Asus ZenFone 3 (' do
       objects = get_phone_names_json('Asus ZenFone 3 (')
       expect(objects.length).to be > 0
-      expect(objects.first['name']).to eq('Asus Zenfone 3 (ZE552KL)')
-      expect(objects.first['name_url']).to eq('asus-zenfone-3-ze552kl')
+      expect(objects.first['name']).to eq('Asus Zenfone 3 (ZE520KL)')
+      expect(objects.first['name_url']).to eq('asus-zenfone-3-ze520kl')
     end
   end
 
@@ -43,9 +45,9 @@ RSpec.describe VersusComHelper, type: :helper do
     it 'should return data for sony z3' do
       data = get_phone_data('sony-xperia-z3')
       expect(data[:name]).to eq('Sony Xperia Z3')
-      expect(data[:points]).to be > 58
+      expect(data[:points]).to be > 53
       expect(data[:url]).to eq('https://versus.com/en/sony-xperia-z3')
-      expect(data[:vs_url]).to eq('https://versus.com/en/samsung-galaxy-s10-plus-vs-sony-xperia-z3')
+      expect(data[:vs_url]).to eq('https://versus.com/en/sony-xperia-5-ii-vs-sony-xperia-z3')
       expect(data[:price]).to be_nil
     end
   end
@@ -54,16 +56,16 @@ RSpec.describe VersusComHelper, type: :helper do
     it 'should return data for sony z3' do
       data = get_phone_data_with_name('sony z3')
       expect(data[:name]).to eq('Sony Xperia Z3')
-      expect(data[:points]).to be > 58
+      expect(data[:points]).to be > 53
       expect(data[:url]).to eq('https://versus.com/en/sony-xperia-z3')
-      expect(data[:vs_url]).to eq('https://versus.com/en/samsung-galaxy-s10-plus-vs-sony-xperia-z3')
+      expect(data[:vs_url]).to eq('https://versus.com/en/sony-xperia-5-ii-vs-sony-xperia-z3')
     end
   end
 
   describe '#get_price' do
     it 'should return proper json object for sony z3' do
       data = get_price('sony xperia z3')
-      expect(data[:lowestPrice]).to match(/.\d+[,\.]\d+/)
+      expect(data[:lowestPrice]).to match(/.\d+[,.]\d+/)
       expect(data).to include(:url)
     end
   end

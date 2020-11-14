@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe VersusComController, type: :controller do
@@ -57,7 +59,7 @@ RSpec.describe VersusComController, type: :controller do
         data = JSON.parse(response.body)
         expect(data).to include('url')
         expect(data).to include('lowestPrice')
-        expect(data['lowestPrice']).to match(/[\$€]\d+[,\.]\d+/)
+        expect(data['lowestPrice']).to match(/[$€]\d+[,.]\d+/)
       end
     end
   end

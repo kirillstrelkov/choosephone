@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RedisHelper
   def get(prefix, key)
     key = prepare_key(prefix, key)

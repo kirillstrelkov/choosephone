@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PhonesHelper
   include VersusComHelper
 
@@ -16,8 +18,8 @@ module PhonesHelper
   end
 
   def language_link(locale)
-    if request.query_string.length > 0
-      phones_compare_path(locale: locale) + '?' + request.query_string
+    if request.query_string.length.positive?
+      "#{phones_compare_path(locale: locale)}?#{request.query_string}"
     else
       index_path(locale: locale)
     end

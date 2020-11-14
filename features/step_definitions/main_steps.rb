@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^I am on main page$/) do
   visit('/')
 end
@@ -57,7 +59,7 @@ Then(/^points are correct for '(.+)'$/) do |phone_name|
   ).text
   expect(points).to match(/\d+/)
   is_tablet = /tab|ipad/.match(phone_name.downcase)
-  expect(points.to_i).to be > (is_tablet ? 75 : 58)
+  expect(points.to_i).to be >= (is_tablet ? 70 : 53)
 end
 
 Then(/^price is correct for '(.+)'$/) do |phone_name|
@@ -66,7 +68,7 @@ Then(/^price is correct for '(.+)'$/) do |phone_name|
     :xpath,
     "//a[@title='#{phone_name}']/../../*[@class='price']"
   ).text
-  expect(points).to match(/[\$€]\d+[,\.]\d+/)
+  expect(points).to match(/[$€]\d+[,.]\d+/)
 end
 
 Then(/^I should see '(.+)' (\d+) times$/) do |text, times|
@@ -89,6 +91,6 @@ When(/^I click '(.+)' link$/) do |text|
   click_link(text)
 end
 
-When(/^I debug$/) do |text|
+When(/^I debug$/) do |_text|
   byebug
 end

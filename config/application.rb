@@ -1,4 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path('boot', __dir__)
 
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
@@ -26,7 +28,7 @@ module Goodphone
     config.i18n.fallbacks = true
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    redis_conf = YAML.load(
+    redis_conf = YAML.safe_load(
       ERB.new(File.read(File.join('config', 'redis.yml'))).result
     )[Rails.env.to_s]
     config.cache_store = [
