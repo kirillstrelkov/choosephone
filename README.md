@@ -36,5 +36,4 @@ BROWSER=firefox bundle exec cucumber
 
 DRIVER=iphone bundle exec cucumber
 DRIVER=pixel bundle exec cucumber
-
 ```
